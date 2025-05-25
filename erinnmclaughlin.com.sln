@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App\App.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Client", "App\App.Client\App.Client.csproj", "{FCF2BE62-A6FC-40F4-B5D3-4A42ED2D95EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "erinnmclaughlin.com.AppHost", "erinnmclaughlin.com.AppHost\erinnmclaughlin.com.AppHost.csproj", "{95416FC3-D372-4106-ADFC-61C26B4A1839}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "AppHost\AppHost.csproj", "{95416FC3-D372-4106-ADFC-61C26B4A1839}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "erinnmclaughlin.com.ServiceDefaults", "erinnmclaughlin.com.ServiceDefaults\erinnmclaughlin.com.ServiceDefaults.csproj", "{DF42E7EF-5D53-4036-9314-3BBEE721D2E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{DF42E7EF-5D53-4036-9314-3BBEE721D2E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
