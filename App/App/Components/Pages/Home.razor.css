@@ -1,0 +1,7 @@
+﻿.greeting-card {
+    border: 1px solid var(--surface-secondary);
+    padding: 2.5rem 3rem;
+    background: var(--surface-primary);
+    backdrop-filter: blur(10px);
+    width: min(700px, 100%);
+}
