@@ -1,4 +1,4 @@
-﻿namespace App.Steam;
+﻿namespace App.Integrations.Steam;
 
 public interface ISteamApiClient
 {
@@ -23,11 +23,6 @@ public sealed class SteamApiClient : ISteamApiClient
         var url = $"IPlayerService/GetRecentlyPlayedGames/v0001/?key={apiKey}&steamid={steamId}&format=json";
 
         var response = await _httpClient.GetFromJsonAsync<SteamApiResponse<GetRecentlyPlayedGamesResponse>>(url, cancellationToken);
-
-        return response?.Response ?? new GetRecentlyPlayedGamesResponse
-        {
-            TotalCount = 0,
-            Games = []
-        };
+        return response?.Response ?? new GetRecentlyPlayedGamesResponse();
     }
 }

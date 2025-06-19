@@ -1,4 +1,4 @@
-﻿namespace App.Steam;
+﻿namespace App.Integrations.Steam;
 
 public sealed record SteamApiResponse<T>
 {

@@ -1,14 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace App.Steam;
+namespace App.Integrations.Steam;
 
 public sealed class GetRecentlyPlayedGamesResponse
 {
     [JsonPropertyName("total_count")]
-    public required int TotalCount { get; init; }
+    public int TotalCount { get; init; }
 
     [JsonPropertyName("games")]
-    public required Game[] Games { get; init; } 
+    public Game[] Games { get; init; } = [];
 
     public sealed record Game
     {

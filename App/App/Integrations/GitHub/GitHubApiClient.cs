@@ -1,10 +1,4 @@
-﻿namespace App.GitHub;
-
-public interface IGitHubApiClient
-{
-    Task<GitHubGist[]> ListGists(CancellationToken cancellationToken = default);
-    Task<GitHubSocialAccount[]> ListSocialAccounts(CancellationToken cancellationToken = default);
-}
+﻿namespace App.Integrations.GitHub;
 
 internal sealed class GitHubApiClient : IGitHubApiClient
 {
@@ -15,11 +9,17 @@ internal sealed class GitHubApiClient : IGitHubApiClient
         _httpClient = httpClient;
     }
 
+    /// <summary>
+    /// Lists the authenticated user's gists.
+    /// </summary>
     public async Task<GitHubGist[]> ListGists(CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetFromJsonAsync<GitHubGist[]>("gists", cancellationToken) ?? [];
     }
     
+    /// <summary>
+    /// Lists the authenticated user's social accounts.
+    /// </summary>
     public async Task<GitHubSocialAccount[]> ListSocialAccounts(CancellationToken cancellationToken)
     {
         return await _httpClient.GetFromJsonAsync<GitHubSocialAccount[]>("user/social_accounts", cancellationToken) ?? [];
