@@ -20,7 +20,7 @@
     </header>
     <div class="page-content">
         <div class="page-content-inner">
-            <div id="socialAccounts">
+            <div class="info-block" id="socialAccounts">
                 <h3 class="heading">My Social Accounts</h3>
                 @if (SocialAccounts is null)
                 {
@@ -38,6 +38,24 @@
                     </ul>
                 }
             </div>
+            <div class="info-block" id="gists">
+                <h3 class="heading">My Gists</h3>
+                @if (Gists is null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <ul style="padding-left: 1rem;">
+                        @foreach (var gist in Gists.Where(g => g.Public))
+                        {
+                            <li>
+                                <a href="@gist.Url" target="_blank">@gist.Description</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -45,6 +63,7 @@
 @code {
 
     private readonly IGitHubApiClient _githubApiClient;
+    private GitHubGist[]? Gists { get; set; }
     private GitHubSocialAccount[]? SocialAccounts { get; set; }
 
     public Home(IGitHubApiClient githubApiClient)
@@ -54,14 +73,7 @@
     
     protected override async Task OnInitializedAsync()
     {
+        Gists = await _githubApiClient.ListGists();
         SocialAccounts = await _githubApiClient.ListSocialAccounts();
-
-        //using var httpClient = new HttpClient();
-
-        //var json = await httpClient.GetFromJsonAsync<JsonElement>("https://api.github.com/user/social_accounts");
-        //var jsonSerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-        //jsonSerializerOptions.WriteIndented = true;
-        //UserInfo = JsonSerializer.Serialize(json, jsonSerializerOptions);
     }
-
 }

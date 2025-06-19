@@ -63,6 +63,10 @@
     height: 100%;
 }
 
+.info-block {
+    margin-bottom: 1rem;
+}
+
 @media (min-width: 770px) {
 
     .page-header-content {
