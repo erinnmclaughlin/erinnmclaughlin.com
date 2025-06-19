@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using App.Components;
 using App.Integrations.GitHub;
 using App.Integrations.Steam;
@@ -11,12 +10,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.AddGitHubApiClient();
-
-builder.Services.AddHttpClient<ISteamApiClient, SteamApiClient>(client =>
-{
-    client.BaseAddress = new Uri("https://api.steampowered.com");
-});
+builder
+    .AddGitHubApiClient()
+    .AddSteamApiClient();
 
 var app = builder.Build();
 
