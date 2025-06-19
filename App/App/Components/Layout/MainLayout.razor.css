@@ -1,8 +1,7 @@
 main {
-    display: flex;
     position: relative;
     flex-grow: 1;
-    background: var(--surface-primary);
+    background: var(--light);
     backdrop-filter: blur(10px);
 }
 
@@ -13,8 +12,10 @@ main {
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 20%, var(--accent-secondary) 0%, transparent 50%), radial-gradient(circle at 80% 80%, var(--accent-primary) 0%, transparent 50%);
+        background: radial-gradient(circle at 20% 20%, var(--orange) 0%, transparent 50%), 
+                    radial-gradient(circle at 80% 80%, var(--orange) 0%, transparent 50%);
         opacity: 0.1;
+        z-index: -1;
     }
 
 #blazor-error-ui {

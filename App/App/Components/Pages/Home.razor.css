@@ -1,7 +1,81 @@
-﻿.greeting-card {
-    border: 1px solid var(--surface-secondary);
-    padding: 2.5rem 3rem;
-    background: var(--surface-primary);
-    backdrop-filter: blur(10px);
-    width: min(700px, 100%);
+﻿.top-border {
+    position: fixed;
+    height: 1.5rem;
+    background-color: var(--yellow);
+    z-index: 50;
+    width: 100%;
+}
+
+.page {
+    height: 100%;
+    padding-top: 1.5rem;
+}
+
+.page-header {
+    padding: 2rem;
+    height: min-content;
+    position: relative;
+    width: 100%;
+    background-color: var(--light);
+}
+
+.page-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-inline: auto;
+    max-width: 1200px;
+    gap: 1rem;
+}
+
+.greeting {
+    text-align: center;
+}
+
+.greeting-title {
+    font-size: 2.25rem;
+}
+
+.greeting-subtitle {
+    font-size: 1.1rem;
+}
+
+.image {
+    height: 250px;
+    width: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.image img {
+    height: 100%;
+}
+
+@media (min-width: 770px) {
+
+    .page-header-content {
+        flex-direction: row-reverse;
+    }
+
+    .image {
+        height: 300px;
+        width: 300px;
+    }
+    
+    .greeting {
+        text-align: left;
+    }
+    
+    .greeting-title {
+        font-size: 3rem;
+    }
+
+    .greeting-subtitle {
+        font-size: 1.25rem;
+    }
+
 }
