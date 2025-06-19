@@ -19,15 +19,23 @@
     background-color: var(--light);
 }
 
+.page-header-content,
+.page-content-inner {
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
 .page-header-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     -webkit-justify-content: space-between;
     justify-content: space-between;
-    margin-inline: auto;
-    max-width: 1200px;
     gap: 1rem;
+}
+
+.page-content {
+    padding: 2rem;
 }
 
 .greeting {

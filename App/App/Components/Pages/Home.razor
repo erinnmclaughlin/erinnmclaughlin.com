@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using App.GitHub
+@attribute [StreamRendering]
 
 <PageTitle>Home</PageTitle>
 
@@ -16,4 +18,50 @@
             </div>
         </div>
     </header>
+    <div class="page-content">
+        <div class="page-content-inner">
+            <div id="socialAccounts">
+                <h3 class="heading">My Social Accounts</h3>
+                @if (SocialAccounts is null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <ul style="padding-left: 1rem;">
+                        @foreach (var socialAccount in SocialAccounts)
+                        {
+                            <li>
+                                <a href="@socialAccount.Url" target="_blank">@socialAccount.Provider</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
+@code {
+
+    private readonly IGitHubApiClient _githubApiClient;
+    private GitHubSocialAccount[]? SocialAccounts { get; set; }
+
+    public Home(IGitHubApiClient githubApiClient)
+    {
+        _githubApiClient = githubApiClient;
+    }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        SocialAccounts = await _githubApiClient.ListSocialAccounts();
+
+        //using var httpClient = new HttpClient();
+
+        //var json = await httpClient.GetFromJsonAsync<JsonElement>("https://api.github.com/user/social_accounts");
+        //var jsonSerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        //jsonSerializerOptions.WriteIndented = true;
+        //UserInfo = JsonSerializer.Serialize(json, jsonSerializerOptions);
+    }
+
+}
