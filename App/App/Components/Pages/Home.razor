@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using App.GitHub
+@using App.Steam
 @attribute [StreamRendering]
 
 <PageTitle>Home</PageTitle>
@@ -56,6 +57,32 @@
                     </ul>
                 }
             </div>
+            <div class="info-block" id="games">
+                <h3 class="heading">Recently Played Games</h3>
+                @if (Games is null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else if (Games.Length == 0)
+                {
+                    <p>Nothin'</p>
+                }
+                else
+                {
+                    <ul style="padding-left: 1rem;">
+                        @foreach (var game in Games)
+                        {
+                            <li>
+                                @if (game.GetIconUrl() is { } logoUrl)
+                                {
+                                    <span><img alt="@game.Name Logo" src="@logoUrl" /></span>
+                                }
+                                <span>@game.Name (@((game.Playtime / 60.0).ToString("0.0")) hours)</span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -63,17 +90,22 @@
 @code {
 
     private readonly IGitHubApiClient _githubApiClient;
+    private readonly ISteamApiClient _steamApiClient;
+    
     private GitHubGist[]? Gists { get; set; }
     private GitHubSocialAccount[]? SocialAccounts { get; set; }
+    private GetRecentlyPlayedGamesResponse.Game[]? Games { get; set; }
 
-    public Home(IGitHubApiClient githubApiClient)
+    public Home(IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
     {
         _githubApiClient = githubApiClient;
+        _steamApiClient = steamApiClient;
     }
     
     protected override async Task OnInitializedAsync()
     {
         Gists = await _githubApiClient.ListGists();
         SocialAccounts = await _githubApiClient.ListSocialAccounts();
+        Games = (await _steamApiClient.GetRecentlyPlayedGames()).Games;
     }
 }

@@ -1,6 +1,7 @@
 using System.Net.Http.Headers;
 using App.Components;
 using App.GitHub;
+using App.Steam;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,11 @@ builder.Services.AddHttpClient<IGitHubApiClient, GitHubApiClient>(client =>
     client.DefaultRequestHeaders.UserAgent.ParseAdd("erinnmclaughlin.com");
     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
     client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
+});
+
+builder.Services.AddHttpClient<ISteamApiClient, SteamApiClient>(client =>
+{
+    client.BaseAddress = new Uri("https://api.steampowered.com");
 });
 
 var app = builder.Build();
