@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using System.Text.Json
 @using App.Integrations.GitHub
+@using App.Integrations.GitHub.Models
 @using App.Integrations.Steam
 @attribute [StreamRendering]
 
@@ -83,6 +85,32 @@
                     </ul>
                 }
             </div>
+            <div class="info-block" id="activities">
+                <h3 class="heading">Recent GitHub Activity</h3>
+                @if (RecentGitHubActivity is null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else if (RecentGitHubActivity.Length == 0)
+                {
+                    <p>Nothin'</p>
+                }
+                else
+                {
+                    <ul style="padding-left: 1rem;">
+                        @foreach (var activity in RecentGitHubActivity.Where(x => x.Public))
+                        {
+                            <li>
+                                <span>@activity.Type</span>
+                                @if (activity.Repository is { } repo)
+                                {
+                                    <span> in <a href="@repo.GetHtmlUrl()" target="_blank">@repo.Name</a></span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -92,9 +120,10 @@
     private readonly IGitHubApiClient _githubApiClient;
     private readonly ISteamApiClient _steamApiClient;
     
+    private GetRecentlyPlayedGamesResponse.Game[]? Games { get; set; }
     private GitHubGist[]? Gists { get; set; }
     private GitHubSocialAccount[]? SocialAccounts { get; set; }
-    private GetRecentlyPlayedGamesResponse.Game[]? Games { get; set; }
+    private GitHubUserEvent[]? RecentGitHubActivity { get; set; }
 
     public Home(IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
     {
@@ -107,5 +136,6 @@
         Gists = await _githubApiClient.ListGists();
         SocialAccounts = await _githubApiClient.ListSocialAccounts();
         Games = (await _steamApiClient.GetRecentlyPlayedGames()).Games;
+        RecentGitHubActivity = await _githubApiClient.ListUserActivities("erinnmclaughlin");
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace App.Integrations.GitHub;
+namespace App.Integrations.GitHub.Models;
 
 public sealed record GitHubSocialAccount
 {

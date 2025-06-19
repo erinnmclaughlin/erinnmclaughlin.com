@@ -1,4 +1,6 @@
-﻿namespace App.Integrations.GitHub;
+﻿using App.Integrations.GitHub.Models;
+
+namespace App.Integrations.GitHub;
 
 internal sealed class GitHubApiClient : IGitHubApiClient
 {
@@ -12,7 +14,7 @@ internal sealed class GitHubApiClient : IGitHubApiClient
     /// <summary>
     /// Lists the authenticated user's gists.
     /// </summary>
-    public async Task<GitHubGist[]> ListGists(CancellationToken cancellationToken = default)
+    public async Task<GitHubGist[]> ListGists(CancellationToken cancellationToken)
     {
         return await _httpClient.GetFromJsonAsync<GitHubGist[]>("gists", cancellationToken) ?? [];
     }
@@ -23,5 +25,10 @@ internal sealed class GitHubApiClient : IGitHubApiClient
     public async Task<GitHubSocialAccount[]> ListSocialAccounts(CancellationToken cancellationToken)
     {
         return await _httpClient.GetFromJsonAsync<GitHubSocialAccount[]>("user/social_accounts", cancellationToken) ?? [];
+    }
+
+    public async Task<GitHubUserEvent[]> ListUserActivities(string username, CancellationToken cancellationToken)
+    {
+        return await _httpClient.GetFromJsonAsync<GitHubUserEvent[]>($"users/{username}/events", cancellationToken) ?? [];
     }
 }
