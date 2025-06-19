@@ -110,6 +110,17 @@
                     </ul>
                 }
             </div>
+            <div class="info-block" id="featured_repos">
+                <h3 class="heading">Featured Repositories</h3>
+                @if (MudBlazorHtmlEditorRepo is not null)
+                {
+                    <div>
+                        <a href="@MudBlazorHtmlEditorRepo.HtmlUrl" target="_blank">
+                            @MudBlazorHtmlEditorRepo.DisplayName
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -123,6 +134,8 @@
     private GitHubGist[]? Gists { get; set; }
     private GitHubSocialAccount[]? SocialAccounts { get; set; }
     private GitHubUserEvent[]? RecentGitHubActivity { get; set; }
+    
+    private GetRepositoryResponse? MudBlazorHtmlEditorRepo { get; set; }
 
     public Home(IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
     {
@@ -135,6 +148,8 @@
         Gists = await _githubApiClient.ListGists();
         SocialAccounts = await _githubApiClient.ListSocialAccounts();
         Games = (await _steamApiClient.GetRecentlyPlayedGames()).Games;
-        RecentGitHubActivity = await _githubApiClient.ListUserActivities("erinnmclaughlin");
+        RecentGitHubActivity = await _githubApiClient.ListUserActivities();
+
+        MudBlazorHtmlEditorRepo = await _githubApiClient.GetRepository("MudBlazor.HtmlEditor");
     }
 }
