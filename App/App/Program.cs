@@ -1,5 +1,6 @@
 using App.Components;
 using App.Features;
+using App.Integrations.Discord;
 using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using App.Integrations.Steam;
@@ -18,6 +19,7 @@ builder
 
 builder.Services.AddScoped<IFeaturedProjectsProvider, FeaturedProjectsProvider>();
 builder.Services.AddScoped<INuGetApiClient, NuGetApiClient>();
+builder.Services.AddHttpClient<DiscordApiClient>(client => client.BaseAddress = new Uri("https://api.lanyard.rest/v1/"));
 
 var app = builder.Build();
 

@@ -1,9 +1,27 @@
 ﻿.top-border {
     position: fixed;
-    height: 1.5rem;
+    height: 2rem;
     background-color: var(--light);
     z-index: 50;
     width: 100%;
+}
+
+.listening-to {
+    max-width: 1440px; 
+    margin-inline: auto;
+    font-size: 0.75rem;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: none;
+}
+
+.listening-to > span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .page {
@@ -87,10 +105,16 @@
     
     .top-border {
         background-color: white;
+        padding-inline: 2rem;
+    }
+    
+    .listening-to {
+        display: flex;
+        justify-content: end;
     }
     
     .page {
-        padding-top: 1.5rem;
+        padding-top: 2rem;
     }
     
     .page-header {

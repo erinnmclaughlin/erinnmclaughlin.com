@@ -4,6 +4,25 @@
 
 <PageTitle>Home</PageTitle>
 
+<div class="top-border">
+    @if (DiscordUser?.CurrentSpotifyTrack is { } listeningTo)
+    {
+        <p class="listening-to">
+            <span>
+                <span style="color: #1ed760">
+                    <i class="fa-brands fa-spotify"></i>
+                </span>
+                <span>
+                    I'm currently listening to <a href="https://open.spotify.com/track/@listeningTo.TrackId" target="_blank">@listeningTo.Song</a>
+                </span>
+                <span>
+                    on Spotify.
+                </span>
+            </span>
+        </p>
+    }
+</div>
+
 <div class="page">
     <header class="page-header">
         <div class="page-header-content">
@@ -41,7 +60,7 @@
                     <div class="card-container">
                         @foreach (var featuredProject in FeaturedProjects)
                         {
-                            <ProjectCard ProjectDefinition="@featuredProject" />
+                            <ProjectCard ProjectDefinition="@featuredProject"/>
                         }
                     </div>
                 }
