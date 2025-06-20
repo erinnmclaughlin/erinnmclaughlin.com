@@ -1,25 +1,21 @@
 ﻿using App.Features;
-using App.Integrations.Discord;
+using Microsoft.AspNetCore.Components;
 
-namespace App.Components.Pages.Home;
+namespace App.Components.Pages.Home.Components;
 
-public sealed partial class HomePage
+public sealed partial class FeaturedProjectsGrid : ComponentBase
 {
-    private readonly DiscordApiClient _discordApi;
     private readonly IFeaturedProjectsProvider _featuredProjectsProvider;
     
-    private DiscordUserData? DiscordUser { get; set; }
     private FeaturedProjectDefinition[]? FeaturedProjects { get; set; }
 
-    public HomePage(IFeaturedProjectsProvider featuredProjectsProvider, DiscordApiClient discordApi)
+    public FeaturedProjectsGrid(IFeaturedProjectsProvider featuredProjectsProvider)
     {
         _featuredProjectsProvider = featuredProjectsProvider;
-        _discordApi = discordApi;
     }
 
     protected override async Task OnInitializedAsync()
     {
-        DiscordUser = await _discordApi.GetUserDetail();
         FeaturedProjects = await _featuredProjectsProvider.GetFeaturedProjectsAsync();
     }
 }

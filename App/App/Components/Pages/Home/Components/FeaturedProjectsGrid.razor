@@ -1,0 +1,13 @@
+﻿@if (FeaturedProjects is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="card-container">
+        @foreach (var featuredProject in FeaturedProjects)
+        {
+            <ProjectCard ProjectDefinition="@featuredProject"/>
+        }
+    </div>
+}
