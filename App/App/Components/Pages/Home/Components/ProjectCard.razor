@@ -1,0 +1,92 @@
+﻿<div class="card">
+    <div>
+        <div style="display: flex; justify-content: space-between">
+            <p class="card-title">
+                @if (Project?.RepositoryUrl is not null)
+                {
+                    <a href="@Project.RepositoryUrl" target="_blank">@ProjectDefinition.DisplayName</a>
+                }
+                else
+                {
+                    <text>@ProjectDefinition.DisplayName</text>
+                }
+            </p>
+            <div class="links">
+                @if (ProjectDefinition.RepoId is not null)
+                {
+                    <a href="https://github.com/@ProjectDefinition.RepoId" target="_blank" title="GitHub">
+                        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                        </svg>
+                    </a>
+                }
+                @if (Project?.PackageUrl is not null)
+                {
+                    <a href="@Project.PackageUrl" target="_blank" title="NuGet">
+                        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <path d="M1.998.342a1.997 1.997 0 1 0 0 3.995 1.997 1.997 0 0 0 0-3.995zm9.18 4.34a6.156 6.156 0 0 0-6.153 6.155v6.667c0 3.4 2.756 6.154 6.154 6.154h6.667c3.4 0 6.154-2.755 6.154-6.154v-6.667a6.154 6.154 0 0 0-6.154-6.155zm-1.477 2.8a2.496 2.496 0 1 1 0 4.993 2.496 2.496 0 0 1 0-4.993zm7.968 6.16a3.996 3.996 0 1 1-.002 7.992 3.996 3.996 0 0 1 .002-7.992z"/>
+                        </svg>
+                    </a>
+                }
+                @if (ProjectDefinition.WebsiteUrl is not null)
+                {
+                    <a href="@ProjectDefinition.WebsiteUrl" target="_blank" title="@ProjectDefinition.WebsiteUrlTitle">
+                        <i class="fa-solid fa-globe fa-lg"></i>
+                    </a>
+                }
+            </div>
+        </div>
+        @if (Project is null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else if (Project.Description != null)
+        {
+            <p class="card-description">@Project.Description</p>
+        }
+    </div>
+
+    @if (Project is not null)
+    {
+        <div class="project-languages">
+            @foreach (var (language, _) in Project.Languages)
+            {
+                <div title="@((Project.GetLanguagePercentage(language) * 100).ToString("0.00"))% @language">
+                    <span class="icon" style="color: @GetLanguageColor(language)">
+                        <i class="fa-solid fa-circle"></i>
+                    </span>
+                    <span>@language</span>
+                </div>
+            }
+        </div>
+        <div class="project-stats">
+            @if (Project.StarCount is not null)
+            {
+                <span class="project-stat" title="@Project.StarCount stars">
+                    <span class="icon">
+                        <i class="fa-light fa-star"></i>
+                    </span>
+                    <span>@Project.StarCount</span>
+                </span>
+            }
+            @if (Project.ForkCount is not null)
+            {
+                <span class="project-stat" title="@Project.ForkCount forks">
+                    <span class="icon">
+                        <i class="fa-light fa-code-fork"></i> 
+                    </span>
+                    <span>@Project.ForkCount</span>
+                </span>
+            }
+            @if (Project.DownloadCount is not null)
+            {
+                <span class="project-stat" title="@Project.DownloadCount downloads">
+                    <span class="icon">
+                        <i class="fa-light fa-download"></i>
+                    </span>
+                    <span>@Project.DownloadCount</span>
+                </span>
+            }
+        </div>
+    }
+</div>

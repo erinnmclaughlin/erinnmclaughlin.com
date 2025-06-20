@@ -12,4 +12,12 @@ public sealed record FeaturedProject
     public required int? DownloadCount { get; init; }
     public string? WebsiteUrlTitle { get; init; }
     public required IReadOnlyDictionary<string, int> Languages { get; init; }
+
+    public double GetLanguagePercentage(string language)
+    {
+        if (!Languages.TryGetValue(language, out var languageBytes))
+            return 0;
+        
+        return languageBytes / (double)Languages.Values.Sum();
+    }
 }

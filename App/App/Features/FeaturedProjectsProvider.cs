@@ -18,7 +18,7 @@ public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
         _nugetApi = nugetApi;
     }
     
-    public async Task<FeaturedProject[]> GetFeaturedProjectsAsync(CancellationToken cancellationToken)
+    public async Task<FeaturedProjectDefinition[]> GetFeaturedProjectsAsync(CancellationToken cancellationToken)
     {
         var fileInfo = _fileProvider.GetFileInfo("featured_projects.json");
         
@@ -28,30 +28,27 @@ public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
         }
 
         await using var stream = fileInfo.CreateReadStream();
-        var projects = JsonSerializer.Deserialize<FeaturedProjectDefinition[]>(stream) ?? [];
-        
-        var featuredProjects = new List<FeaturedProject>();
+        return JsonSerializer.Deserialize<FeaturedProjectDefinition[]>(stream) ?? [];
+    }
 
-        foreach (var project in projects)
-        {
-            var repo = project.RepoId is null ? null : await _githubApi.GetRepository(project.RepoId, cancellationToken);
-            var nuget = project.NuGetId is null ? null : await _nugetApi.GetPackageDetail(project.NuGetId, cancellationToken);
+    public async Task<FeaturedProject> GetFeaturedProjectDetailsAsync(FeaturedProjectDefinition projectDefinition, CancellationToken cancellationToken)
+    {
+        var (repoId, nugetId) = (projectDefinition.RepoId, projectDefinition.NuGetId);
+        var repo = repoId is null ? null : await _githubApi.GetRepository(repoId, cancellationToken);
+        var nuget = nugetId is null ? null : await _nugetApi.GetPackageDetail(nugetId, cancellationToken);
             
-            featuredProjects.Add(new FeaturedProject
-            {
-                DisplayName = project.DisplayName,
-                Description = repo?.Description ?? nuget?.Description,
-                PackageUrl = nuget is null ? null : $"https://www.nuget.org/packages/{nuget.Id}",
-                RepositoryUrl = repo?.HtmlUrl,
-                WebsiteUrl = project.WebsiteUrl,
-                WebsiteUrlTitle = project.WebsiteUrlTitle,
-                StarCount = repo?.StargazersCount,
-                ForkCount = repo?.ForksCount,
-                DownloadCount = nuget?.TotalDownloads,
-                Languages = project.RepoId is null ? [] : await _githubApi.ListRepositoryLanguages(project.RepoId, cancellationToken)
-            });
-        }
-        
-        return featuredProjects.ToArray();
+        return new FeaturedProject
+        {
+            DisplayName = projectDefinition.DisplayName,
+            Description = repo?.Description ?? nuget?.Description,
+            PackageUrl = nuget is null ? null : $"https://www.nuget.org/packages/{nuget.Id}",
+            RepositoryUrl = repo?.HtmlUrl,
+            WebsiteUrl = projectDefinition.WebsiteUrl,
+            WebsiteUrlTitle = projectDefinition.WebsiteUrlTitle,
+            StarCount = repo?.StargazersCount,
+            ForkCount = repo?.ForksCount,
+            DownloadCount = nuget?.TotalDownloads,
+            Languages = repoId is null ? [] : await _githubApi.ListRepositoryLanguages(repoId, cancellationToken)
+        };
     }
 }

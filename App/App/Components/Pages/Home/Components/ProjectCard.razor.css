@@ -7,6 +7,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 150px;
 }
 
 .links {
@@ -62,6 +63,7 @@
     font-size: 0.75rem;
     line-height: 1;
     flex-wrap: wrap;
+    cursor: default;
 }
 
 .project-stats {
@@ -72,9 +74,6 @@
     gap: 1rem;
     line-height: 1;
     flex-wrap: wrap;
-}
-
-.project-stat {
     cursor: default;
 }
 

@@ -2,5 +2,6 @@ namespace App.Features;
 
 public interface IFeaturedProjectsProvider
 {
-    Task<FeaturedProject[]> GetFeaturedProjectsAsync(CancellationToken cancellationToken = default);
+    Task<FeaturedProjectDefinition[]> GetFeaturedProjectsAsync(CancellationToken cancellationToken = default);
+    Task<FeaturedProject> GetFeaturedProjectDetailsAsync(FeaturedProjectDefinition projectDefinition, CancellationToken cancellationToken = default);
 }

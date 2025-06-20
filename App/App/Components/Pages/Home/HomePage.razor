@@ -1,8 +1,5 @@
 ﻿@page "/"
-@using App.Features
-@using App.Integrations.GitHub
-@using App.Integrations.GitHub.Models
-@using App.Integrations.Steam
+@using App.Components.Pages.Home.Components
 @attribute [StreamRendering]
 
 <PageTitle>Home</PageTitle>
@@ -44,7 +41,7 @@
                     <div class="card-container">
                         @foreach (var featuredProject in FeaturedProjects)
                         {
-                            <ProjectCard Project="@featuredProject" />
+                            <ProjectCard ProjectDefinition="@featuredProject" />
                         }
                     </div>
                 }
@@ -52,28 +49,3 @@
         </div>
     </div>
 </div>
-
-@code {
-
-    private readonly IFeaturedProjectsProvider _featuredProjectsProvider;
-    private readonly IGitHubApiClient _githubApiClient;
-    private readonly ISteamApiClient _steamApiClient;
-    
-    private FeaturedProject[]? FeaturedProjects { get; set; }
-    private RecentlyPlayedGame[]? Games { get; set; }
-    private GitHubGist[]? Gists { get; set; }
-
-    public Home(IFeaturedProjectsProvider featuredProjectsProvider, IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
-    {
-        _featuredProjectsProvider = featuredProjectsProvider;
-        _githubApiClient = githubApiClient;
-        _steamApiClient = steamApiClient;
-    }
-    
-    protected override async Task OnInitializedAsync()
-    {
-        FeaturedProjects = await _featuredProjectsProvider.GetFeaturedProjectsAsync();
-        Gists = await _githubApiClient.ListGists();
-        Games = await _steamApiClient.GetRecentlyPlayedGames();
-    }
-}
