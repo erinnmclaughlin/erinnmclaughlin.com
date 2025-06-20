@@ -50,6 +50,8 @@ jobs:
         env:
           AZURE_GITHUB_ACCESS_TOKEN: ${{ secrets.AZURE_GITHUB_ACCESS_TOKEN }}
           AZURE_STEAM_API_KEY: ${{ secrets.AZURE_STEAM_API_KEY }}
+          AZURE_CUSTOM_DOMAIN: ${{ vars.AZURE_CUSTOM_DOMAIN }}
+          AZURE_CERTIFICATE_NAME: ${{ vars.AZURE_CERTIFICATE_NAME }}
 
       - name: Deploy Application
         run: azd deploy --no-prompt
