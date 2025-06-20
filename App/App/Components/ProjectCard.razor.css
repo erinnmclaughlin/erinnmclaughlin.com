@@ -55,13 +55,23 @@
     font-size: 0.9rem;
 }
 
-.project-detail {
+.project-languages {
+    margin-block: 1rem;
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    flex-wrap: wrap;
+}
+
+.project-stats {
     margin-top: auto;
-    padding-top: 1.5rem;
+    padding-top: 1rem;
     font-size: 0.9rem;
     display: flex;
     gap: 1rem;
     line-height: 1;
+    flex-wrap: wrap;
 }
 
 .project-stat {
@@ -71,21 +81,6 @@
 .project-stat .icon + * {
     margin-left: 0.1rem;
 }
-
-.type {
-    position: absolute;
-    top: 8px;
-    right: 0;
-    background-color: lightgray;
-    font-size: 0.825rem;
-    padding: 2px 8px;
-}
-
-.type--nuget-package {
-    color: white;
-    background-color: var(--pink);
-}
-
 
 @media (min-width: 770px) {
     .card {

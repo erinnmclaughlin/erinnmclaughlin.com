@@ -47,7 +47,8 @@ public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
                 WebsiteUrlTitle = project.WebsiteUrlTitle,
                 StarCount = repo?.StargazersCount,
                 ForkCount = repo?.ForksCount,
-                DownloadCount = nuget?.TotalDownloads
+                DownloadCount = nuget?.TotalDownloads,
+                Languages = project.RepoId is null ? [] : await _githubApi.ListRepositoryLanguages(project.RepoId, cancellationToken)
             });
         }
         

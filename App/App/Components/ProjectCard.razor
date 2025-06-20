@@ -44,7 +44,19 @@
         }
     </div>
 
-    <div class="project-detail">
+    <div class="project-languages">
+        @foreach (var language in Project.Languages)
+        {
+            <div>
+                <span class="icon" style="color: @GetLanguageColor(language.Key)">
+                    <i class="fa-solid fa-circle"></i>
+                </span>
+                <span>@language.Key</span>
+            </div>
+        }
+    </div>
+    
+    <div class="project-stats">
         @if (Project.StarCount is not null)
         {
             <span class="project-stat">
@@ -73,10 +85,20 @@
             </span>
         }
     </div>
+    
 </div>
 
 @code {
     
     [Parameter]
     public required FeaturedProject Project { get; set; }
+
+    private static string GetLanguageColor(string language) => language switch
+    {
+        "C#" => "#178600",
+        "CSS" => "#663399",
+        "HTML" => "#e34c26",
+        "JavaScript" => "#f1e05a",
+        _ => "var(--dark)"
+    };
 }

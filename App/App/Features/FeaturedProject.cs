@@ -11,4 +11,5 @@ public sealed record FeaturedProject
     public required int? ForkCount { get; init; }
     public required int? DownloadCount { get; init; }
     public string? WebsiteUrlTitle { get; init; }
+    public required IReadOnlyDictionary<string, int> Languages { get; init; }
 }

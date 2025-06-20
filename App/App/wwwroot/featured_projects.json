@@ -17,5 +17,19 @@
     "nugetId": "HeadlessBlazor",
     "website": "https://headlessblazor.org/",
     "websiteUrlTitle": "Project Website"
+  },
+  {
+    "displayName": "Beacon",
+    "repoId": "erinnmclaughlin/Beacon",
+    "website": "https://beacon-lms.azurewebsites.net/",
+    "websiteUrlTitle": "Live Demo"
+  },
+  {
+    "displayName": "Flappy Bird",
+    "repoId": "erinnmclaughlin/Flappy-Bird"
+  },
+  {
+    "displayName": "Statusphere.NET",
+    "repoId": "erinnmclaughlin/Statusphere.NET"
   }
 ]

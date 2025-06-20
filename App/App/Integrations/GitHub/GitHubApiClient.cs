@@ -43,4 +43,9 @@ internal sealed class GitHubApiClient : IGitHubApiClient
     {
         return await _httpClient.GetFromJsonAsync<GitHubUser>("user", cancellationToken);
     }
+    
+    public async Task<Dictionary<string, int>> ListRepositoryLanguages(string repositoryName, CancellationToken cancellationToken = default)
+    {
+        return await _httpClient.GetFromJsonAsync<Dictionary<string, int>>($"repos/{repositoryName}/languages", cancellationToken) ?? [];
+    }
 }

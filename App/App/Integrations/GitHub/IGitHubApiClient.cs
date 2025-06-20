@@ -25,6 +25,11 @@ public interface IGitHubApiClient
     Task<GetRepositoryResponse?> GetRepository(string repositoryName, CancellationToken cancellationToken = default);
     
     /// <summary>
+    /// Lists languages for the specified repository. The value shown for each language is the number of bytes of code written in that language.
+    /// </summary>
+    Task<Dictionary<string, int>> ListRepositoryLanguages(string repositoryName, CancellationToken cancellationToken = default);
+    
+    /// <summary>
     /// Gets the authenticated user's profile.
     /// </summary>
     Task<GitHubUser?> GetUserProfile(CancellationToken cancellationToken = default);

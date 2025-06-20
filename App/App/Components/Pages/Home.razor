@@ -7,8 +7,6 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="top-border"></div>
-
 <div class="page">
     <header class="page-header">
         <div class="page-header-content">
@@ -51,53 +49,6 @@
                     </div>
                 }
             </div>
-            
-            <div class="info-block" id="gists">
-                <h3 class="heading">My Gists</h3>
-                @if (Gists is null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else
-                {
-                    <ul style="padding-left: 1rem;">
-                        @foreach (var gist in Gists.Where(g => g.Public))
-                        {
-                            <li>
-                                <a href="@gist.Url" target="_blank">@gist.Description</a>
-                            </li>
-                        }
-                    </ul>
-                }
-            </div>
-            
-            <div class="info-block" id="games">
-                <h3 class="heading">Recently Played Games</h3>
-                @if (Games is null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else if (Games.Length == 0)
-                {
-                    <p>Nothin'</p>
-                }
-                else
-                {
-                    <ul style="padding-left: 1rem;">
-                        @foreach (var game in Games)
-                        {
-                            <li>
-                                @if (game.GetIconUrl() is { } logoUrl)
-                                {
-                                    <span><img alt="@game.Name Logo" src="@logoUrl"/></span>
-                                }
-                                <span>@game.Name (@((game.Playtime / 60.0).ToString("0.0")) hours)</span>
-                            </li>
-                        }
-                    </ul>
-                }
-            </div>
-           
         </div>
     </div>
 </div>
