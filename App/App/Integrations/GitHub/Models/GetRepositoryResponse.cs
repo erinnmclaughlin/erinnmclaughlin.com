@@ -13,6 +13,9 @@ public sealed record GetRepositoryResponse
     [JsonPropertyName("full_name")]
     public required string FullName { get; init; }
     
+    [JsonPropertyName("homepage")]
+    public string? Homepage { get; init; }
+    
     [JsonPropertyName("html_url")]
     public required string HtmlUrl { get; init; }
     

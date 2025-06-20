@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Text.Json
 @using App.Integrations.GitHub
 @using App.Integrations.GitHub.Models
 @using App.Integrations.Steam
@@ -22,6 +23,28 @@
     </header>
     <div class="page-content">
         <div class="page-content-inner">
+            <div class="info-block">
+                <h2 class="heading">Featured Projects</h2>
+                <div class="card-container">
+                    
+                    <ProjectCard Name="MudBlazor.HtmlEditor"
+                                 Description="A rich text editor component for MudBlazor."
+                                 RepositoryName="MudBlazor.HtmlEditor"
+                                 NuGetPackageId="Tizzani.MudBlazor.HtmlEditor" />
+
+                    <ProjectCard Name="QueryStringSerializer"
+                                 Description="Provides methods for serializing & deserializing objects as URL-encoded query strings."
+                                 RepositoryName="Tizzani.QueryStringSerializer"
+                                 NuGetPackageId="Tizzani.QueryStringSerializer" />
+                    
+                    <ProjectCard Name="HeadlessBlazor"
+                                 Description="Headless Blazor is a style-agnostic component library for Blazor. Inspired by Headless UI."
+                                 RepositoryName="HeadlessBlazor"
+                                 NuGetPackageId="HeadlessBlazor" />
+
+                </div>
+            </div>
+            
             <div class="info-block" id="socialAccounts">
                 <h3 class="heading">My Social Accounts</h3>
                 @if (SocialAccounts is null)
@@ -76,7 +99,7 @@
                             <li>
                                 @if (game.GetIconUrl() is { } logoUrl)
                                 {
-                                    <span><img alt="@game.Name Logo" src="@logoUrl" /></span>
+                                    <span><img alt="@game.Name Logo" src="@logoUrl"/></span>
                                 }
                                 <span>@game.Name (@((game.Playtime / 60.0).ToString("0.0")) hours)</span>
                             </li>
@@ -110,17 +133,7 @@
                     </ul>
                 }
             </div>
-            <div class="info-block" id="featured_repos">
-                <h3 class="heading">Featured Repositories</h3>
-                @if (MudBlazorHtmlEditorRepo is not null)
-                {
-                    <div>
-                        <a href="@MudBlazorHtmlEditorRepo.HtmlUrl" target="_blank">
-                            @MudBlazorHtmlEditorRepo.DisplayName
-                        </a>
-                    </div>
-                }
-            </div>
+           
         </div>
     </div>
 </div>
@@ -130,12 +143,12 @@
     private readonly IGitHubApiClient _githubApiClient;
     private readonly ISteamApiClient _steamApiClient;
     
+    private JsonElement? TestThing { get; set; }
+    
     private GetRecentlyPlayedGamesResponse.Game[]? Games { get; set; }
     private GitHubGist[]? Gists { get; set; }
     private GitHubSocialAccount[]? SocialAccounts { get; set; }
     private GitHubUserEvent[]? RecentGitHubActivity { get; set; }
-    
-    private GetRepositoryResponse? MudBlazorHtmlEditorRepo { get; set; }
 
     public Home(IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
     {
@@ -149,7 +162,5 @@
         SocialAccounts = await _githubApiClient.ListSocialAccounts();
         Games = (await _steamApiClient.GetRecentlyPlayedGames()).Games;
         RecentGitHubActivity = await _githubApiClient.ListUserActivities();
-
-        MudBlazorHtmlEditorRepo = await _githubApiClient.GetRepository("MudBlazor.HtmlEditor");
     }
 }

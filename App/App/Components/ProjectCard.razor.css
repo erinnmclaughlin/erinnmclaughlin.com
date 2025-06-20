@@ -1,0 +1,93 @@
+﻿.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 1px var(--light);
+    border: 1px solid var(--light);
+    padding: 1rem 1.25rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.links {
+    display: flex;
+    gap: 4px;
+    margin-top: -0.25rem;
+    margin-right: -0.5rem;
+}
+
+.links > a {
+    color: black;
+    border-radius: 2px;
+    padding: 6px;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.links > a:hover {
+    color: var(--orange);
+}
+
+.card-title, .card-description {
+    margin: 0;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.33rem;
+}
+
+.card-title a {
+    color: black;
+    text-underline-offset: 4px;
+}
+
+.card-title a:hover {
+    color: var(--orange);
+}
+
+.card-description {
+    font-size: 0.9rem;
+}
+
+.project-detail {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 1rem;
+    line-height: 1;
+}
+
+.project-stat {
+    cursor: default;
+}
+
+.project-stat .icon + * {
+    margin-left: 0.1rem;
+}
+
+.type {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    background-color: lightgray;
+    font-size: 0.825rem;
+    padding: 2px 8px;
+}
+
+.type--nuget-package {
+    color: white;
+    background-color: var(--pink);
+}
+
+
+@media (min-width: 770px) {
+    .card {
+        padding: 1.25rem 1.5rem;
+    }
+}

@@ -1,5 +1,6 @@
 using App.Components;
 using App.Integrations.GitHub;
+using App.Integrations.NuGet;
 using App.Integrations.Steam;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddRazorComponents()
 builder
     .AddGitHubApiClient()
     .AddSteamApiClient();
+
+builder.Services.AddScoped<INuGetApiClient, NuGetApiClient>();
 
 var app = builder.Build();
 

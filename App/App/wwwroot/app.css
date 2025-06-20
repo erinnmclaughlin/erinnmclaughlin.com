@@ -11,8 +11,6 @@
 }
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -25,15 +23,20 @@ body {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     line-height: 1.6;
     color: var(--dark);
-    background-color: var(--light);
+    background-color: white;
     -webkit-font-smoothing: antialiased;
     height: 100%;
     display: flex;
     flex-direction: column;
+    margin: 0;
 }
 
 h1, h2, h3 {
     line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
 }
 
 h1:focus {
