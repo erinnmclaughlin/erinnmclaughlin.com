@@ -2,12 +2,13 @@
 
 public static class GitHubModule
 {
-    public const string ConfigurationSectionName = "GitHub";
-    
-    public static T AddGitHubApiClient<T>(this T builder, string configurationSectionName = ConfigurationSectionName)
-        where T : IHostApplicationBuilder
+    public static T AddGitHubApiClient<T>(this T builder) where T : IHostApplicationBuilder
     {
-        builder.Services.Configure<GitHubOptions>(builder.Configuration.GetSection(configurationSectionName));
+        builder.Services.Configure<GitHubOptions>(o =>
+        {
+            o.AccessToken = builder.Configuration["github-access-token"];
+        });
+        
         builder.Services.AddTransient<GitHubAuthenticationHandler>();
         
         var apiClientBuilder = builder.Services.AddHttpClient<IGitHubApiClient, GitHubApiClient>(client =>

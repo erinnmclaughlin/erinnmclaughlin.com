@@ -2,6 +2,6 @@
 
 public sealed record GitHubOptions
 {
-    public string? AccessToken { get; init; }
-    public string Username { get; init; } = "erinnmclaughlin";
+    public string? AccessToken { get; set; }
+    public string Username { get; set; } = "erinnmclaughlin";
 }

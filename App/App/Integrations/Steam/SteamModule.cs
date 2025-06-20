@@ -2,12 +2,13 @@
 
 public static class SteamModule
 {
-    public const string ConfigurationSectionName = "Steam";
-
-    public static T AddSteamApiClient<T>(this T builder, string configurationSectionName = ConfigurationSectionName)
-        where T : IHostApplicationBuilder
+    public static T AddSteamApiClient<T>(this T builder) where T : IHostApplicationBuilder
     {
-        builder.Services.Configure<SteamOptions>(builder.Configuration.GetSection(configurationSectionName));
+        builder.Services.Configure<SteamOptions>(o =>
+        {
+            o.ApiKey = builder.Configuration["steam-api-key"];
+            o.SteamId = builder.Configuration["steam-id"];
+        });
         
         builder.Services.AddHttpClient<ISteamApiClient, SteamApiClient>(client =>
         {
