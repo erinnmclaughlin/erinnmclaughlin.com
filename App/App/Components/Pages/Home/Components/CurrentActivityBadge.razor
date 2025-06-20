@@ -1,4 +1,19 @@
-﻿@if (UserData?.CurrentSpotifyTrack is { } listeningTo)
+﻿@using App.Integrations.Discord
+
+@if (UserData?.Activities.FirstOrDefault(x => x.Type == DiscordActivityType.Playing) is { } playingActivity)
+{
+    <p class="current-activity">
+        <span>
+            <span style="color: #000">
+                <i class="fa-brands fa-steam"></i>
+            </span>
+            <span>
+                I'm currently playing @playingActivity.Name
+            </span>
+        </span>
+    </p>
+}
+else if (UserData?.CurrentSpotifyTrack is { } listeningTo)
 {
     <p class="current-activity">
         <span>
