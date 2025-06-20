@@ -13,10 +13,10 @@ public sealed class SteamApiClient : ISteamApiClient
         _options = options.Value;
     }
 
-    public async Task<GetRecentlyPlayedGamesResponse> GetRecentlyPlayedGames(CancellationToken cancellationToken)
+    public async Task<RecentlyPlayedGame[]> GetRecentlyPlayedGames(CancellationToken cancellationToken)
     {
         var url = $"IPlayerService/GetRecentlyPlayedGames/v0001/?key={_options.ApiKey}&steamid={_options.SteamId}&format=json";
         var response = await _httpClient.GetFromJsonAsync<SteamApiResponse<GetRecentlyPlayedGamesResponse>>(url, cancellationToken);
-        return response?.Response ?? new GetRecentlyPlayedGamesResponse();
+        return response?.Response.Games ?? [];
     }
 }

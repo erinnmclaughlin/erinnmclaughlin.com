@@ -2,5 +2,5 @@
 
 public interface ISteamApiClient
 {
-    Task<GetRecentlyPlayedGamesResponse> GetRecentlyPlayedGames(CancellationToken cancellationToken = default);
+    Task<RecentlyPlayedGame[]> GetRecentlyPlayedGames(CancellationToken cancellationToken = default);
 }

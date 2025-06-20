@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using System.Text.Json
 @using App.Integrations.GitHub
 @using App.Integrations.GitHub.Models
 @using App.Integrations.Steam
@@ -18,6 +17,18 @@
             <div class="greeting">
                 <h1 class="greeting-title">Hi, I'm Erin.</h1>
                 <p class="greeting-subtitle">I'm a .NET software engineer passionate about building systems.</p>
+                <p class="external-links">
+                    <a class="link" href="https://github.com/erinnmclaughlin" target="_blank">
+                        <span class="icon">
+                            <i class="fa-brands fa-github fa-xl"></i>
+                        </span>
+                    </a>
+                    <a class="link" href="https://www.linkedin.com/in/e1mclaughlin/" target="_blank">
+                        <span class="icon">
+                            <i class="fa-brands fa-linkedin fa-xl"></i>
+                        </span>
+                    </a>
+                </p>
             </div>
         </div>
     </header>
@@ -45,24 +56,6 @@
                 </div>
             </div>
             
-            <div class="info-block" id="socialAccounts">
-                <h3 class="heading">My Social Accounts</h3>
-                @if (SocialAccounts is null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else
-                {
-                    <ul style="padding-left: 1rem;">
-                        @foreach (var socialAccount in SocialAccounts)
-                        {
-                            <li>
-                                <a href="@socialAccount.Url" target="_blank">@socialAccount.Provider</a>
-                            </li>
-                        }
-                    </ul>
-                }
-            </div>
             <div class="info-block" id="gists">
                 <h3 class="heading">My Gists</h3>
                 @if (Gists is null)
@@ -81,6 +74,7 @@
                     </ul>
                 }
             </div>
+            
             <div class="info-block" id="games">
                 <h3 class="heading">Recently Played Games</h3>
                 @if (Games is null)
@@ -107,32 +101,6 @@
                     </ul>
                 }
             </div>
-            <div class="info-block" id="activities">
-                <h3 class="heading">Recent GitHub Activity</h3>
-                @if (RecentGitHubActivity is null)
-                {
-                    <p><em>Loading...</em></p>
-                }
-                else if (RecentGitHubActivity.Length == 0)
-                {
-                    <p>Nothin'</p>
-                }
-                else
-                {
-                    <ul style="padding-left: 1rem;">
-                        @foreach (var activity in RecentGitHubActivity.Where(x => x.Public))
-                        {
-                            <li>
-                                <span>@activity.Type</span>
-                                @if (activity.Repository is { } repo)
-                                {
-                                    <span> in <a href="@repo.GetHtmlUrl()" target="_blank">@repo.Name</a></span>
-                                }
-                            </li>
-                        }
-                    </ul>
-                }
-            </div>
            
         </div>
     </div>
@@ -143,12 +111,8 @@
     private readonly IGitHubApiClient _githubApiClient;
     private readonly ISteamApiClient _steamApiClient;
     
-    private JsonElement? TestThing { get; set; }
-    
-    private GetRecentlyPlayedGamesResponse.Game[]? Games { get; set; }
+    private RecentlyPlayedGame[]? Games { get; set; }
     private GitHubGist[]? Gists { get; set; }
-    private GitHubSocialAccount[]? SocialAccounts { get; set; }
-    private GitHubUserEvent[]? RecentGitHubActivity { get; set; }
 
     public Home(IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
     {
@@ -159,8 +123,6 @@
     protected override async Task OnInitializedAsync()
     {
         Gists = await _githubApiClient.ListGists();
-        SocialAccounts = await _githubApiClient.ListSocialAccounts();
-        Games = (await _steamApiClient.GetRecentlyPlayedGames()).Games;
-        RecentGitHubActivity = await _githubApiClient.ListUserActivities();
+        Games = await _steamApiClient.GetRecentlyPlayedGames();
     }
 }
