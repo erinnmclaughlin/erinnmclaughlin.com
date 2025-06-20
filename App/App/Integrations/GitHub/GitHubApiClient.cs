@@ -31,7 +31,7 @@ internal sealed class GitHubApiClient : IGitHubApiClient
 
     public async Task<GetRepositoryResponse?> GetRepository(string repositoryName, CancellationToken cancellationToken)
     {
-        var response = await _httpClient.GetAsync($"repos/{_options.Username}/{repositoryName}", cancellationToken);
+        var response = await _httpClient.GetAsync($"repos/{repositoryName}", cancellationToken);
 
         if (response.IsSuccessStatusCode)
             return await response.Content.ReadFromJsonAsync<GetRepositoryResponse>(cancellationToken);

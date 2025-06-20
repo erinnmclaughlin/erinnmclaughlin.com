@@ -1,4 +1,5 @@
 using App.Components;
+using App.Features;
 using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using App.Integrations.Steam;
@@ -15,6 +16,7 @@ builder
     .AddGitHubApiClient()
     .AddSteamApiClient();
 
+builder.Services.AddScoped<IFeaturedProjectsProvider, FeaturedProjectsProvider>();
 builder.Services.AddScoped<INuGetApiClient, NuGetApiClient>();
 
 var app = builder.Build();

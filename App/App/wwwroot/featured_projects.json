@@ -1,0 +1,21 @@
+[
+  {
+    "displayName": "MudBlazor.HtmlEditor",
+    "repoId": "erinnmclaughlin/MudBlazor.HtmlEditor",
+    "nugetId": "Tizzani.MudBlazor.HtmlEditor",
+    "website": "https://erinnmclaughlin.github.io/MudBlazor.HtmlEditor/",
+    "websiteUrlTitle": "Live Demo"
+  },
+  {
+    "displayName": "QueryStringSerializer",
+    "repoId": "erinnmclaughlin/Tizzani.QueryStringSerializer",
+    "nugetId": "Tizzani.QueryStringSerializer"
+  },
+  {
+    "displayName": "HeadlessBlazor",
+    "repoId": "erinnmclaughlin/HeadlessBlazor",
+    "nugetId": "HeadlessBlazor",
+    "website": "https://headlessblazor.org/",
+    "websiteUrlTitle": "Project Website"
+  }
+]

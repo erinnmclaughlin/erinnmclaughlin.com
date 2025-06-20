@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using App.Features
 @using App.Integrations.GitHub
 @using App.Integrations.GitHub.Models
 @using App.Integrations.Steam
@@ -36,24 +37,19 @@
         <div class="page-content-inner">
             <div class="info-block">
                 <h2 class="heading">Featured Projects</h2>
-                <div class="card-container">
-                    
-                    <ProjectCard Name="MudBlazor.HtmlEditor"
-                                 Description="A rich text editor component for MudBlazor."
-                                 RepositoryName="MudBlazor.HtmlEditor"
-                                 NuGetPackageId="Tizzani.MudBlazor.HtmlEditor" />
-
-                    <ProjectCard Name="QueryStringSerializer"
-                                 Description="Provides methods for serializing & deserializing objects as URL-encoded query strings."
-                                 RepositoryName="Tizzani.QueryStringSerializer"
-                                 NuGetPackageId="Tizzani.QueryStringSerializer" />
-                    
-                    <ProjectCard Name="HeadlessBlazor"
-                                 Description="Headless Blazor is a style-agnostic component library for Blazor. Inspired by Headless UI."
-                                 RepositoryName="HeadlessBlazor"
-                                 NuGetPackageId="HeadlessBlazor" />
-
-                </div>
+                @if (FeaturedProjects is null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <div class="card-container">
+                        @foreach (var featuredProject in FeaturedProjects)
+                        {
+                            <ProjectCard Project="@featuredProject" />
+                        }
+                    </div>
+                }
             </div>
             
             <div class="info-block" id="gists">
@@ -108,20 +104,24 @@
 
 @code {
 
+    private readonly IFeaturedProjectsProvider _featuredProjectsProvider;
     private readonly IGitHubApiClient _githubApiClient;
     private readonly ISteamApiClient _steamApiClient;
     
+    private FeaturedProject[]? FeaturedProjects { get; set; }
     private RecentlyPlayedGame[]? Games { get; set; }
     private GitHubGist[]? Gists { get; set; }
 
-    public Home(IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
+    public Home(IFeaturedProjectsProvider featuredProjectsProvider, IGitHubApiClient githubApiClient, ISteamApiClient steamApiClient)
     {
+        _featuredProjectsProvider = featuredProjectsProvider;
         _githubApiClient = githubApiClient;
         _steamApiClient = steamApiClient;
     }
     
     protected override async Task OnInitializedAsync()
     {
+        FeaturedProjects = await _featuredProjectsProvider.GetFeaturedProjectsAsync();
         Gists = await _githubApiClient.ListGists();
         Games = await _steamApiClient.GetRecentlyPlayedGames();
     }
