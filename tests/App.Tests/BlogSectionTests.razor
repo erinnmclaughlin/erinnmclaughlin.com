@@ -1,0 +1,36 @@
+@using App.Components.Pages.Home
+@using Microsoft.FeatureManagement
+@using NSubstitute
+@using App.Components.Pages.Home.Components
+@inherits TestContext
+
+<h3>HomePageTests</h3>
+
+@code {
+    
+    [Fact(DisplayName = "Blog section should show when feature flag is ON")]
+    public void BlogSection_Shows_WhenFeatureFlagIsOn()
+    {
+        // Arrange
+        var featureManager = Substitute.For<IFeatureManager>();
+        featureManager.IsEnabledAsync(FeatureFlags.Blog).Returns(Task.FromResult(true));
+        Services.AddSingleton(featureManager);
+        
+        // Act
+        var component = Render(@<BlogSection />);
+        Assert.NotEmpty(component.FindAll("#blog"));
+    }
+    
+    [Fact(DisplayName = "Blog section should NOT show when feature flag is OFF")]
+    public void BlogSection_DoesNotShow_WhenFeatureFlagIsOff()
+    {
+        // Arrange
+        var featureManager = Substitute.For<IFeatureManager>();
+        featureManager.IsEnabledAsync(FeatureFlags.Blog).Returns(Task.FromResult(false));
+        Services.AddSingleton(featureManager);
+        
+        // Act
+        var component = Render(@<BlogSection />);
+        Assert.Empty(component.FindAll("#blog"));
+    }
+}

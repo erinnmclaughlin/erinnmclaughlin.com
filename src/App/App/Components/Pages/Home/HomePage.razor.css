@@ -14,33 +14,13 @@
     width: 100%;
 }
 
-.section {
+::deep .section {
     margin-top: 2rem;
     max-width: 1440px;
     margin-inline: auto;
 }
 
-.section-heading {
-    margin-bottom: 1rem;
-}
-
-#projects.section {
-    padding-inline: 1rem;
-}
-
-#blog.section {
-    padding: 2.25rem 1.75rem 3rem;
-    background-color: var(--dark);
-    color: var(--light);
-}
-
-.blog-post {
-    padding: 1rem;
-    background-color: rgb(255 255 255 / 0.1);
-    border-radius: 0.5rem;
-}
-
-.blog-post:not(:last-child) {
+::deep .section-heading {
     margin-bottom: 1rem;
 }
 
@@ -64,15 +44,7 @@
         padding-inline: 2rem;
     }
     
-    .section {
+    ::deep .section {
         margin-inline: auto;
-    }
-
-    #projects.section {
-        padding-inline: 0;
-    }
-    
-    #blog.section {
-        border-radius: 0.75rem;
     }
 }

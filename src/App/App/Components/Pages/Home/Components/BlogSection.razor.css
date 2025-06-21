@@ -1,0 +1,21 @@
+.section {
+    padding: 2.25rem 1.75rem 3rem;
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.blog-post {
+    padding: 1rem;
+    background-color: rgb(255 255 255 / 0.1);
+    border-radius: 0.5rem;
+}
+
+.blog-post:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 770px) {
+    #blog.section {
+        border-radius: 0.75rem;
+    }
+}

@@ -1,0 +1,9 @@
+.section {
+    padding-inline: 1rem;
+}
+
+@media (min-width: 770px) {  
+    .section {
+        padding-inline: 0;
+    }
+}
