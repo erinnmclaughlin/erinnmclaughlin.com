@@ -4,5 +4,5 @@ name: erinnmclaughlin-com
 services:  
   app:
     language: dotnet
-    project: ./AppHost/AppHost.csproj
+    project: ./src/AppHost/AppHost.csproj
     host: containerapp
