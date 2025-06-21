@@ -1,8 +1,6 @@
 ﻿.top-border {
-    position: fixed;
-    height: 2rem;
+    height: 1rem;
     background-color: var(--light);
-    z-index: 50;
     width: 100%;
 }
 
@@ -36,12 +34,9 @@
 @media (min-width: 770px) {
     
     .top-border {
+        height: 2rem;
         background-color: white;
         padding-inline: 2rem;
-    }
-    
-    .page {
-        padding-top: 2rem;
     }
     
     .page-header {
