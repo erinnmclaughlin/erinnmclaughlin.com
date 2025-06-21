@@ -9,6 +9,17 @@
     align-items: center;
 }
 
+.current-activity::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    background: #1DB954;
+    border-radius: 50%;
+    animation: pulse 1.2s infinite;
+}
+
 .current-activity > span {
     max-width: 100%;
     overflow: hidden;

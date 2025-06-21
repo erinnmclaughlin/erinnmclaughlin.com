@@ -4,10 +4,10 @@
 }
 else
 {
-    <div class="card-container">
-        @foreach (var featuredProject in FeaturedProjects)
+    <div class="card-container fade-in" style="animation-delay: 0.5s">
+        @foreach (var project in FeaturedProjects)
         {
-            <ProjectCard ProjectDefinition="@featuredProject"/>
+            <ProjectCard ProjectDefinition="project"/>
         }
     </div>
 }

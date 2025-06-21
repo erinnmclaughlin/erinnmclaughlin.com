@@ -7,18 +7,12 @@
             <span>
                 @if (playingActivity.Name is "Rider")
                 {
-                    <span style="color: #000">
-                        <i class="fa-solid fa-laptop-code"></i>
-                    </span>
                     <span>
                         I'm currently programming in @playingActivity.Name
                     </span>
                 }
                 else
                 {
-                    <span style="color: #000">
-                        <i class="fa-brands fa-steam"></i>
-                    </span>
                     <span>
                         I'm currently playing @playingActivity.Name
                     </span>
@@ -30,12 +24,7 @@
     {
         <p class="current-activity">
             <span>
-                <span style="color: #1ed760">
-                    <i class="fa-brands fa-spotify"></i>
-                </span>
-                <span>
-                    I'm currently listening to <a href="https://open.spotify.com/track/@listeningTo.TrackId" target="_blank">@listeningTo.Artist</a>
-                </span>
+                I'm currently listening to <a href="https://open.spotify.com/track/@listeningTo.TrackId" target="_blank">@listeningTo.Artist</a>
             </span>
         </p>
     }

@@ -31,6 +31,8 @@
 
 .links > a:hover {
     color: var(--orange);
+    transition: transform 0.2s ease;
+    transform: scale(1.2);
 }
 
 .card-title, .card-description {
