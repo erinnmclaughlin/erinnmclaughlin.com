@@ -4,14 +4,18 @@ using App.Integrations.Discord;
 using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using App.Integrations.Steam;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddRazorComponents()
+builder.Services
+    .AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddFeatureManagement();
 
 builder
     .AddGitHubApiClient()
