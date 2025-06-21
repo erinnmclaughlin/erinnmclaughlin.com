@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace App.Features;
+namespace App.Components.Pages.Home.Services;
 
 public sealed record FeaturedProjectDefinition
 {

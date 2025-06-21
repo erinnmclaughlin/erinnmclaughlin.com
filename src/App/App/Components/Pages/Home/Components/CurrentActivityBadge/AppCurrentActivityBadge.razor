@@ -1,7 +1,9 @@
 ﻿@using App.Integrations.Discord
+@namespace App.Components.Pages.Home.Components
+@inject DiscordApiClient DiscordApiClient
 
 <div class="current-activities">
-    @if (UserData?.Activities.FirstOrDefault(x => x.Type == DiscordActivityType.Playing) is { } playingActivity)
+    @if (UserData?.Activities.FirstOrDefault(x => x.Type is DiscordActivityType.Playing) is { } playingActivity)
     {
         <p class="current-activity">
             <span>
@@ -29,3 +31,12 @@
         </p>
     }
 </div>
+
+@code {
+    private DiscordUserData? UserData { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        UserData = await DiscordApiClient.GetUserDetail();
+    }
+}

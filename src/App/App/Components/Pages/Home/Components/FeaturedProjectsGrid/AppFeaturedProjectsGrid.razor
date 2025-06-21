@@ -1,0 +1,27 @@
+﻿@using App.Components.Pages.Home.Services
+@namespace App.Components.Pages.Home.Components
+@inject IFeaturedProjectsProvider FeaturedProjectsProvider
+
+@if (FeaturedProjects is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="card-container fade-in">
+        @foreach (var project in FeaturedProjects)
+        {
+            <AppProjectCard ProjectDefinition="project"/>
+        }
+    </div>
+}
+
+@code {
+    
+    private FeaturedProjectDefinition[]? FeaturedProjects { get; set; }
+
+    protected override void OnInitialized()
+    {
+        FeaturedProjects = FeaturedProjectsProvider.GetFeaturedProjects();
+    }
+}

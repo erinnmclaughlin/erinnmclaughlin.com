@@ -1,4 +1,4 @@
-namespace App.Features;
+namespace App.Components.Pages.Home.Services;
 
 public sealed record FeaturedProject
 {

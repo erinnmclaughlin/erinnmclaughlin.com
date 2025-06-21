@@ -1,5 +1,5 @@
 using App.Components;
-using App.Features;
+using App.Components.Pages.Home.Services;
 using App.Integrations.Discord;
 using App.Integrations.GitHub;
 using App.Integrations.NuGet;

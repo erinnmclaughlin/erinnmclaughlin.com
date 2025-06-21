@@ -3,7 +3,7 @@ using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using Microsoft.Extensions.FileProviders;
 
-namespace App.Features;
+namespace App.Components.Pages.Home.Services;
 
 public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
 {
@@ -18,7 +18,7 @@ public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
         _nugetApi = nugetApi;
     }
     
-    public async Task<FeaturedProjectDefinition[]> GetFeaturedProjectsAsync(CancellationToken cancellationToken)
+    public FeaturedProjectDefinition[] GetFeaturedProjects()
     {
         var fileInfo = _fileProvider.GetFileInfo("featured_projects.json");
         
@@ -27,7 +27,7 @@ public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
             return [];
         }
 
-        await using var stream = fileInfo.CreateReadStream();
+        using var stream = fileInfo.CreateReadStream();
         return JsonSerializer.Deserialize<FeaturedProjectDefinition[]>(stream) ?? [];
     }
 

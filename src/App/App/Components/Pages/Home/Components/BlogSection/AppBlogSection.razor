@@ -1,3 +1,7 @@
+@using Microsoft.FeatureManagement
+@namespace App.Components.Pages.Home.Components
+@inject IFeatureManager FeatureManager
+
 @if (IsEnabled)
 {
     <section class="section" id="blog">
@@ -11,4 +15,14 @@
             <p>It doesn't have to be this way!!!</p>
         </div>
     </section>
+}
+
+@code {
+    
+    private bool IsEnabled { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsEnabled = await FeatureManager.IsEnabledAsync(FeatureFlags.Blog);
+    }
 }

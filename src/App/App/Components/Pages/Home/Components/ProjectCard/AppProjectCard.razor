@@ -1,4 +1,8 @@
-﻿<div class="card">
+﻿@using App.Components.Pages.Home.Services
+@namespace App.Components.Pages.Home.Components
+@inject IFeaturedProjectsProvider FeaturedProjectsProvider
+
+<div class="card">
     <div>
         <div style="display: flex; justify-content: space-between">
             <p class="card-title">
@@ -86,3 +90,26 @@
         </div>
     }
 </div>
+
+@code {
+    
+    [Parameter] 
+    public required FeaturedProjectDefinition ProjectDefinition { get; set; }
+
+    private FeaturedProject? Project { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Project = await FeaturedProjectsProvider.GetFeaturedProjectDetailsAsync(ProjectDefinition);
+    }
+    
+    private static string GetLanguageColor(string language) => language switch
+    {
+        "C#" => "#178600",
+        "CSS" => "#663399",
+        "HTML" => "#e34c26",
+        "JavaScript" => "#f1e05a",
+        _ => "var(--dark)"
+    };
+
+}
