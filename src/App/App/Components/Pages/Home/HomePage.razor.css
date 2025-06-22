@@ -15,9 +15,13 @@
 }
 
 ::deep .section {
-    margin-top: 2rem;
     max-width: 1440px;
     margin-inline: auto;
+    padding-block: 1.75rem;
+}
+
+::deep .section:last-child {
+    padding-bottom: 3rem;
 }
 
 ::deep .section-heading {
@@ -41,7 +45,7 @@
     }
     
     .page-body {
-        padding-inline: 2rem;
+        padding-inline: 2.25rem;
     }
     
     ::deep .section {
