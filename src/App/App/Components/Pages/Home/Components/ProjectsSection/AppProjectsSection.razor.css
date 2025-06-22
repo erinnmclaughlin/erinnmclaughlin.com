@@ -1,0 +1,26 @@
+.section {
+    padding-inline: 1rem;
+}
+
+.card-container {
+    display: grid;
+    grid-gap: 1rem;
+    animation-delay: 0.4s
+}
+
+@media (min-width: 770px) {
+    .section {
+        padding-inline: 0;
+    }
+    
+    .card-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .card-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

@@ -1,24 +1,20 @@
-﻿@using App.Components.Pages.Home.Services
+@using App.Components.Pages.Home.Services
 @namespace App.Components.Pages.Home.Components
 @inject IFeaturedProjectsProvider FeaturedProjectsProvider
 
-@if (FeaturedProjects is null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <div class="card-container fade-in">
+<section class="section fade-in" id="projects" >
+    <h2 class="section-heading">Featured Projects</h2>
+    <div class="card-container">
         @foreach (var project in FeaturedProjects)
         {
             <AppProjectCard ProjectDefinition="project"/>
         }
     </div>
-}
+</section>
 
 @code {
-    
-    private FeaturedProjectDefinition[]? FeaturedProjects { get; set; }
+
+    private FeaturedProjectDefinition[] FeaturedProjects { get; set; } = [];
 
     protected override void OnInitialized()
     {
