@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-Blog.DbMigrator-cca0e616-e4bc-4d54-948c-592d4b2d882f</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Aspire.Npgsql" Version="9.3.1" />
+        <PackageReference Include="FluentMigrator" Version="7.1.0" />
+        <PackageReference Include="FluentMigrator.Runner" Version="7.1.0" />
+        <PackageReference Include="FluentMigrator.Runner.Postgres" Version="7.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2"/>
+    </ItemGroup>
+</Project>

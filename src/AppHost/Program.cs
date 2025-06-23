@@ -21,4 +21,12 @@ builder.AddProject<Projects.App>("app")
 #pragma warning restore ASPIREACADOMAINS001
     });
 
+var postgres = builder.AddPostgres("postgres");
+var blogDb = postgres.AddDatabase("blogdb")
+    .WithCreationScript("create database blogdb");
+
+builder.AddProject<Projects.Blog_DbMigrator>("blogdbmigrator")
+    .WithReference(blogDb)
+    .WaitFor(blogDb);
+
 builder.Build().Run();
