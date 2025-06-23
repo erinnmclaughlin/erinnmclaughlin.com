@@ -1,15 +1,17 @@
-using App.Components;
-using App.Components.Pages.Home.Services;
+using App;
+using App.Blog.Services;
 using App.Integrations.Discord;
 using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using App.Integrations.Steam;
+using App.Projects.Services;
 using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddNpgsqlDataSource("blogdb");
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 builder.Services
     .AddRazorComponents()

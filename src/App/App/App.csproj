@@ -17,5 +17,15 @@
     <ProjectReference Include="..\..\ServiceDefaults\ServiceDefaults.csproj" />
     <ProjectReference Include="..\App.Client\App.Client.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <AdditionalFiles Include="Home\Components\BlogSection\AppBlogSection.razor" />
+    <AdditionalFiles Include="Home\Components\CurrentActivityBadge\AppCurrentActivityBadge.razor" />
+    <AdditionalFiles Include="Home\Components\HeaderCard\AppHeaderCard.razor" />
+    <AdditionalFiles Include="Home\Components\ProjectCard\AppProjectCard.razor" />
+    <AdditionalFiles Include="Home\Components\ProjectsSection\AppProjectsSection.razor" />
+    <AdditionalFiles Include="Home\HomePage.razor" />
+    <AdditionalFiles Include="Layout\MainLayout.razor" />
+  </ItemGroup>
 
 </Project>

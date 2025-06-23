@@ -3,7 +3,7 @@ using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using Microsoft.Extensions.FileProviders;
 
-namespace App.Components.Pages.Home.Services;
+namespace App.Projects.Services;
 
 public sealed class FeaturedProjectsProvider : IFeaturedProjectsProvider
 {
