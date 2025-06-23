@@ -1,38 +1,33 @@
+using Blog.DbMigrator;
 using FluentMigrator.Runner;
 
 var builder = Host.CreateApplicationBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("blogdb");
+
+builder.AddNpgsqlDataSource("blogdb");
 
 builder.Services
     .AddFluentMigratorCore()
     .ConfigureRunner(rb =>
     {
-        rb.AddPostgres().WithGlobalConnectionString(connectionString);
+        rb.AddPostgres().WithGlobalConnectionString(builder.Configuration.GetConnectionString("blogdb"));
         rb.ScanIn(typeof(Program).Assembly).For.All();
     })
     .AddLogging(lb => lb.AddFluentMigratorConsole());
 
-var app = builder.Build();
-using var scope = app.Services.CreateScope();
-var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+builder.Services.AddScoped<BlogDbMigrator>();
+builder.Services.AddScoped<BlogDbSeeder>();
 
-if (runner.HasMigrationsToApplyUp())
+var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+
+// Apply Migrations
+var migrator = scope.ServiceProvider.GetRequiredService<BlogDbMigrator>();
+migrator.Run();
+
+// Apply Seed Data
+if (builder.Environment.IsDevelopment())
 {
-    logger.LogInformation("Applying migrations...");
-    
-    try
-    {
-        runner.MigrateUp();
-        logger.LogInformation("Migrations successfully applied.");
-    }
-    catch (Exception ex)
-    { 
-        logger.LogError(ex, "Error while migrating up");
-        throw;
-    }
-}
-else
-{
-    logger.LogInformation("No migrations to apply.");
+    var seeder = scope.ServiceProvider.GetRequiredService<BlogDbSeeder>();
+    await seeder.SeedAsync();
 }
