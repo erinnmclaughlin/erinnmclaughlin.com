@@ -7,8 +7,10 @@ public sealed class AddBlogsTable : Migration
 {
     public override void Up()
     {
+        Execute.Sql("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";");
+        
         Create.Table("posts")
-            .WithColumn("id").AsGuid().PrimaryKey()
+            .WithColumn("id").AsGuid().PrimaryKey().WithDefault(SystemMethods.NewGuid)
             .WithColumn("title").AsString(200).NotNullable()
             .WithColumn("slug").AsString(200).NotNullable().Unique()
             .WithColumn("content").AsString().NotNullable()

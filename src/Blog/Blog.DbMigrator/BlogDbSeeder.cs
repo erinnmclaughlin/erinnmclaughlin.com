@@ -1,39 +1,28 @@
+using System.Data;
 using Dapper;
-using Npgsql;
 
 namespace Blog.DbMigrator;
 
-public sealed class BlogDbSeeder
+public static class BlogDbSeeder
 {
-    private readonly NpgsqlDataSource _dataSource;
-    
-    public BlogDbSeeder(NpgsqlDataSource dataSource)
+    public static async Task SeedAsync(IDbConnection connection, CancellationToken cancellationToken = default)
     {
-        _dataSource = dataSource;
-    }
-    
-    public async Task SeedAsync(CancellationToken cancellationToken = default)
-    {
-        await using var connection = await _dataSource.OpenConnectionAsync(cancellationToken);
-
+        // only seed if the posts table is empty
         if (await connection.ExecuteScalarAsync<bool>("SELECT EXISTS(SELECT 1 FROM posts);"))
             return;
 
-        var sql =
+        await connection.ExecuteAsync(new CommandDefinition(
             """
-            insert into posts (id, slug, title, content_preview, content, created_at)
+            insert into posts (slug, title, content_preview, content)
             values
             (
-              gen_random_uuid(), 
              'first-post', 
              'First Post', 
              'This is the first post preview.', 
-             'This is the content of the first post.', 
-             now()
+             '<p>This is the content of the first post.</p>'
              );
-            """;
-
-        var command = new CommandDefinition(sql, cancellationToken: cancellationToken);
-        await connection.ExecuteAsync(command);
+            """, 
+            cancellationToken: cancellationToken
+        ));
     }
 }
