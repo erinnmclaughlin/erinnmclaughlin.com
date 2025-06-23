@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blog", "Blog", "{205DADD3-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.DbMigrator", "src\Blog\Blog.DbMigrator\Blog.DbMigrator.csproj", "{68C1F905-7E45-4182-A259-BEB2874407CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.AdminPortal", "src\Blog\Blog.AdminPortal\Blog.AdminPortal.csproj", "{1C3E89BA-88B8-484D-9914-ADE279B2C0BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{68C1F905-7E45-4182-A259-BEB2874407CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68C1F905-7E45-4182-A259-BEB2874407CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68C1F905-7E45-4182-A259-BEB2874407CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C3E89BA-88B8-484D-9914-ADE279B2C0BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C3E89BA-88B8-484D-9914-ADE279B2C0BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C3E89BA-88B8-484D-9914-ADE279B2C0BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C3E89BA-88B8-484D-9914-ADE279B2C0BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,5 +69,6 @@ Global
 		{B989D681-CA97-4E0C-8A05-B03369C02FFB} = {AC24BEFF-A689-4803-B016-C37633013D89}
 		{205DADD3-1F67-44A9-832E-393E8E3FACDD} = {21A94A82-90F0-433A-9588-345BD4B2B798}
 		{68C1F905-7E45-4182-A259-BEB2874407CD} = {205DADD3-1F67-44A9-832E-393E8E3FACDD}
+		{1C3E89BA-88B8-484D-9914-ADE279B2C0BB} = {205DADD3-1F67-44A9-832E-393E8E3FACDD}
 	EndGlobalSection
 EndGlobal

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App\App\App.csproj" />
+    <ProjectReference Include="..\Blog\Blog.AdminPortal\Blog.AdminPortal.csproj" />
     <ProjectReference Include="..\Blog\Blog.DbMigrator\Blog.DbMigrator.csproj" />
   </ItemGroup>
 

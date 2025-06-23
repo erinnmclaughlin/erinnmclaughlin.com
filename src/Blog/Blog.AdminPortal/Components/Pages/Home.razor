@@ -1,0 +1,24 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Blog Posts</h1>
+
+@if (Posts is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (Posts.Count == 0)
+{
+    <p>No posts available.</p>
+}
+else
+{
+    <ul>
+        @foreach (var post in Posts)
+        {
+            <li>@post.Title</li>
+        }
+    </ul>
+}
+

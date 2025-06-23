@@ -8,7 +8,7 @@ public sealed class AddBlogsTable : Migration
     public override void Up()
     {
         Create.Table("posts")
-            .WithColumn("id").AsGuid().PrimaryKey().Identity()
+            .WithColumn("id").AsGuid().PrimaryKey()
             .WithColumn("title").AsString(256).NotNullable()
             .WithColumn("slug").AsString(256).NotNullable().Unique()
             .WithColumn("content").AsString().NotNullable()
