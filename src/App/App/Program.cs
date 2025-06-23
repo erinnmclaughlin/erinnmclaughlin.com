@@ -9,6 +9,7 @@ using Microsoft.FeatureManagement;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+builder.AddNpgsqlDataSource("blogdb");
 
 builder.Services
     .AddRazorComponents()

@@ -7,14 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql" Version="9.3.1" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="4.1.0" />
-    <ProjectReference Include="..\..\ServiceDefaults\ServiceDefaults.csproj" />
-    <ProjectReference Include="..\App.Client\App.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.2" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Components\Pages\Home\Components\ProjectsSection\AppFeaturedProjectsGrid.razor" />
+    <ProjectReference Include="..\..\ServiceDefaults\ServiceDefaults.csproj" />
+    <ProjectReference Include="..\App.Client\App.Client.csproj" />
   </ItemGroup>
 
 </Project>

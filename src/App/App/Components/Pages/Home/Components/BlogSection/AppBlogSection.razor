@@ -1,19 +1,21 @@
+@using Dapper
 @using Microsoft.FeatureManagement
+@using Npgsql
 @namespace App.Components.Pages.Home.Components
 @inject IFeatureManager FeatureManager
+@inject NpgsqlDataSource DataSource
 
 @if (IsEnabled)
 {
     <section class="section fade-in" id="blog">
         <h2 class="section-heading">Recent Blog Posts</h2>
-        <div class="blog-post">
-            <h3>Never Say Always</h3>
-            <p>Software engineering doesn't have to be dogmatic.</p>
-        </div>
-        <div class="blog-post">
-            <h3>Why your EF Queries Suck</h3>
-            <p>It doesn't have to be this way!!!</p>
-        </div>
+        @foreach (var post in Posts ?? [])
+        {
+            <a href="" class="blog-post">
+                <h3>@post.Title</h3>
+                <p>@post.ContentPreview</p>
+            </a>
+        }
     </section>
 }
 
@@ -21,8 +23,23 @@
     
     private bool IsEnabled { get; set; }
 
+    private IReadOnlyList<BlogPost>? Posts { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         IsEnabled = await FeatureManager.IsEnabledAsync(FeatureFlags.Blog);
+
+        if (IsEnabled)
+        {
+            await using var connection = await DataSource.OpenConnectionAsync();
+            var posts = await connection.QueryAsync<BlogPost>(
+                "SELECT slug, title, content_preview as \"ContentPreview\" FROM posts ORDER BY created_at DESC LIMIT 3"
+            );
+
+            Posts = posts.ToList();
+        }
     }
+
+    private sealed record BlogPost(string Slug, string Title, string ContentPreview);
+
 }
