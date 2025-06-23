@@ -9,10 +9,11 @@ public sealed class AddBlogsTable : Migration
     {
         Create.Table("posts")
             .WithColumn("id").AsGuid().PrimaryKey()
-            .WithColumn("title").AsString(256).NotNullable()
-            .WithColumn("slug").AsString(256).NotNullable().Unique()
+            .WithColumn("title").AsString(200).NotNullable()
+            .WithColumn("slug").AsString(200).NotNullable().Unique()
             .WithColumn("content").AsString().NotNullable()
-            .WithColumn("created_at").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentDateTime);
+            .WithColumn("content_preview").AsString(1000).NotNullable()
+            .WithColumn("created_at").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentDateTimeOffset);
         
         Create.Index("idx_posts_slug")
             .OnTable("posts")

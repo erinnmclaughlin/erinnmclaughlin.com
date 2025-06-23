@@ -1,0 +1,21 @@
+@page "/create"
+
+<h3>Create Post</h3>
+
+<EditForm FormName="createBlogPost" Model="Form" OnValidSubmit="CreatePost">
+    <div class="mb-3">
+        <label for="title">Title</label>
+        <InputText id="title" class="form-control" @bind-Value="Form.Title" />
+    </div>
+    <div class="mb-3">
+        <label for="contentPreview">Content Preview</label>
+        <InputTextArea id="contentPreview" class="form-control" rows="5" @bind-Value="Form.ContentPreview" />
+    </div>
+    <div class="mb-3">
+        <label for="content">Content</label>
+        <InputTextArea id="content" class="form-control" rows="10" @bind-Value="Form.Content" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+</EditForm>
