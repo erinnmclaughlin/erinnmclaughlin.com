@@ -3,11 +3,6 @@ using Npgsql;
 
 namespace App.Blog.Services;
 
-public interface IBlogRepository
-{
-    Task<RecentBlogPost[]> GetRecentPostsAsync(int count = 3, CancellationToken cancellationToken = default);
-}
-
 public sealed class BlogRepository : IBlogRepository
 {
     private readonly NpgsqlDataSource _dataSource;

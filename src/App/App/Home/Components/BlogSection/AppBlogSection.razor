@@ -1,37 +1,20 @@
 @using App.Blog
-@using App.Blog.Services
-@using Microsoft.FeatureManagement
 @namespace App.Home.Components
-@inject IBlogRepository BlogRepository
-@inject IFeatureManager FeatureManager
 
-@if (Posts?.Count > 0)
-{
-    <section class="section fade-in" id="blog">
-        <h2 class="section-heading">Recent Blog Posts</h2>
-        @foreach (var post in Posts ?? [])
-        {
-            <a href="" class="blog-post">
-                <h3>@post.Title</h3>
-                <p>@post.ContentPreview</p>
-            </a>
-        }
-    </section>
-}
-
-@code {
-    
-    private bool IsEnabled { get; set; }
-
-    private IReadOnlyList<RecentBlogPost>? Posts { get; set; }
-    
-    protected override async Task OnInitializedAsync()
+<AppRecentBlogPosts>
+    @if (context?.Count > 0)
     {
-        IsEnabled = await FeatureManager.IsEnabledAsync(FeatureFlags.Blog);
-
-        if (IsEnabled)
-        {
-            Posts = await BlogRepository.GetRecentPostsAsync();
-        }
+        <section class="section fade-in" id="blog">
+            <h2 class="section-heading">Recent Blog Posts</h2>
+            @foreach (var post in context)
+            {
+                <div class="blog-post">
+                    <h3 class="blog-post-title">
+                        <a href="">@post.Title</a>
+                    </h3>
+                    <p class="blog-post-preview">@post.ContentPreview</p>
+                </div>
+            }
+        </section>
     }
-}
+</AppRecentBlogPosts>

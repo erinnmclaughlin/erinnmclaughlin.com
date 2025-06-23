@@ -15,6 +15,11 @@
     margin-bottom: 1rem;
 }
 
+.blog-post-title > a {
+    color: white;
+    text-decoration: underline;
+}
+
 @media (min-width: 770px) {
     #blog.section {
         border-radius: 0.75rem;

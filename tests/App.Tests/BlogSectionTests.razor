@@ -1,81 +1,61 @@
 @using App.Blog
 @using App.Blog.Services
-@using Microsoft.FeatureManagement
-@using NSubstitute
 @using App.Home.Components
-@inherits TestContext
-
-<h3>HomePageTests</h3>
-
+@using NSubstitute
+@inherits AppTestContext
 @code {
-    
-    [Fact(DisplayName = "Blog section should show when feature flag is ON")]
-    public void BlogSection_Shows_WhenFeatureFlagIsOn()
-    {
-        // Arrange
-        var featureManager = Substitute.For<IFeatureManager>();
-        featureManager.IsEnabledAsync(FeatureFlags.Blog).Returns(Task.FromResult(true));
-        Services.AddSingleton(featureManager);
 
-        var blogRepository = Substitute.For<IBlogRepository>();
-        blogRepository.GetRecentPostsAsync().Returns(Task.FromResult(new[]
-        {
-            new RecentBlogPost
-            {
-                Id = Guid.CreateVersion7(),
-                Slug = "my-post",
-                Title = "My Blog Post",
-                ContentPreview = "This is my blog post preview.",
-                CreatedAt = DateTimeOffset.UtcNow.AddMinutes(-15)
-            }
-        }));
-        Services.AddSingleton(blogRepository);
+    [Fact(DisplayName = "Blog section should show when feature flag is ON")]
+    public async Task BlogSection_Shows_WhenFeatureFlagIsOn()
+    {
+        var repo = AddMockBlogRepository(postCount: 3);
+        var component = Render(@<AppBlogSection/>);
         
-        // Act
-        var component = Render(@<AppBlogSection />);
         Assert.NotEmpty(component.FindAll("#blog"));
+
+        foreach (var post in await repo.GetRecentPostsAsync())
+        {
+            Assert.Contains(post.Title, component.FindAll(".blog-post-title").Select(t => t.TextContent));
+        }
     }
-    
+
     [Fact(DisplayName = "Blog section should NOT show when feature flag is OFF")]
     public void BlogSection_DoesNotShow_WhenFeatureFlagIsOff()
     {
-        // Arrange
-        var featureManager = Substitute.For<IFeatureManager>();
-        featureManager.IsEnabledAsync(FeatureFlags.Blog).Returns(Task.FromResult(false));
-        Services.AddSingleton(featureManager);
-        var blogRepository = Substitute.For<IBlogRepository>();
-        blogRepository.GetRecentPostsAsync().Returns(Task.FromResult(new[]
-        {
-            new RecentBlogPost
-            {
-                Id = Guid.CreateVersion7(),
-                Slug = "my-post",
-                Title = "My Blog Post",
-                ContentPreview = "This is my blog post preview.",
-                CreatedAt = DateTimeOffset.UtcNow.AddMinutes(-15)
-            }
-        }));
-        Services.AddSingleton(blogRepository);
-        
-        // Act
-        var component = Render(@<AppBlogSection />);
+        AddMockBlogRepository(postCount: 3);
+        DisableFeature(FeatureFlags.Blog);
+
+        var component = Render(@<AppBlogSection/>);
         Assert.Empty(component.FindAll("#blog"));
     }
-    
+
     [Fact(DisplayName = "Blog section should NOT show when there are no posts")]
     public void BlogSection_DoesNotShow_WhenNoPosts()
     {
-        // Arrange
-        var featureManager = Substitute.For<IFeatureManager>();
-        featureManager.IsEnabledAsync(FeatureFlags.Blog).Returns(Task.FromResult(true));
-        Services.AddSingleton(featureManager);
-        
-        var blogRepository = Substitute.For<IBlogRepository>();
-        blogRepository.GetRecentPostsAsync().Returns(Task.FromResult(Array.Empty<RecentBlogPost>()));
-        Services.AddSingleton(blogRepository);
-        
-        // Act
-        var component = Render(@<AppBlogSection />);
+        AddMockBlogRepository(postCount: 0);
+
+        var component = Render(@<AppBlogSection/>);
         Assert.Empty(component.FindAll("#blog"));
+    }
+    
+    private IBlogRepository AddMockBlogRepository(int postCount)
+    {
+        var blogRepository = Substitute.For<IBlogRepository>();
+        var posts = new List<RecentBlogPost>();
+        for (var i = 0; i < postCount; i++)
+        {
+            posts.Add(new RecentBlogPost
+            {
+                Id = Guid.CreateVersion7(),
+                Slug = $"post-{i}",
+                Title = $"Post Title {i}",
+                ContentPreview = $"This is the preview for post {i}.",
+                CreatedAt = DateTimeOffset.UtcNow.AddMinutes(-i * 10)
+            });
+        }
+        
+        blogRepository.GetRecentPostsAsync().Returns(Task.FromResult(posts.ToArray()));
+        Services.AddSingleton(blogRepository);
+        return blogRepository;
     }
 }

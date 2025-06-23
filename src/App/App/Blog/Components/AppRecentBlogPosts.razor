@@ -1,0 +1,21 @@
+@using App.Blog.Services
+@using Microsoft.FeatureManagement
+@namespace App.Blog
+@inject IBlogRepository BlogRepository
+@inject IFeatureManager FeatureManager
+
+@ChildContent?.Invoke(Posts)
+
+@code {
+
+    private IReadOnlyList<RecentBlogPost>? Posts { get; set; }
+    
+    [Parameter]
+    public RenderFragment<IReadOnlyList<RecentBlogPost>?>? ChildContent { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var isEnabled = await FeatureManager.IsEnabledAsync(FeatureFlags.Blog);
+        Posts = isEnabled ? await BlogRepository.GetRecentPostsAsync() : [];
+    }
+}
