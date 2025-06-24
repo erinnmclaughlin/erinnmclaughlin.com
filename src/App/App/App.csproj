@@ -19,13 +19,20 @@
   </ItemGroup>
   
   <ItemGroup>
-    <AdditionalFiles Include="Home\Components\BlogSection\AppBlogSection.razor" />
-    <AdditionalFiles Include="Home\Components\CurrentActivityBadge\AppCurrentActivityBadge.razor" />
-    <AdditionalFiles Include="Home\Components\HeaderCard\AppHeaderCard.razor" />
-    <AdditionalFiles Include="Home\Components\ProjectCard\AppProjectCard.razor" />
-    <AdditionalFiles Include="Home\Components\ProjectsSection\AppProjectsSection.razor" />
-    <AdditionalFiles Include="Home\HomePage.razor" />
-    <AdditionalFiles Include="Layout\MainLayout.razor" />
+    <AdditionalFiles Include="Components\Layout\MainLayout.razor" />
+    <AdditionalFiles Include="Components\Pages\Home\Components\BlogSection\AppBlogSection.razor" />
+    <AdditionalFiles Include="Components\Pages\Home\Components\CurrentActivityBadge\AppCurrentActivityBadge.razor" />
+    <AdditionalFiles Include="Components\Pages\Home\Components\HeaderCard\AppHeaderCard.razor" />
+    <AdditionalFiles Include="Components\Pages\Home\Components\Projects\ProjectCard\AppProjectCard.razor" />
+    <AdditionalFiles Include="Components\Pages\Home\Components\Projects\ProjectsSection\AppProjectsSection.razor" />
+    <AdditionalFiles Include="Components\Pages\Home\HomePage.razor" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Layout\MainLayout.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Layout\MainLayout.razor" />
+    <_ContentIncludedByDefault Remove="Features\Blog\Components\AppRecentBlogPosts.razor" />
+    <_ContentIncludedByDefault Remove="Components\Pages\Home\Components\ProjectsSection\AppProjectsSection.razor" />
   </ItemGroup>
 
 </Project>

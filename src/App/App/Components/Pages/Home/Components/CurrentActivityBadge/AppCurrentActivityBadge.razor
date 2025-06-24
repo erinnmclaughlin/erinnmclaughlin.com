@@ -1,0 +1,28 @@
+﻿@namespace App.Components.Pages.Home.Components
+@inject IAppCurrentActivityBadgeViewModel ViewModel
+
+@if (CurrentActivity is not null)
+{
+    <div class="current-activities">
+        <p class="current-activity" data-testid="current-activity">
+            <span>I'm currently @CurrentActivity.Verb@(" ")</span>
+            @if (CurrentActivity.ActionLink is { } actionLink)
+            {
+                <a href="@actionLink" target="_blank">@CurrentActivity.Action</a>
+            }
+            else
+            {
+                <span>@CurrentActivity.Action</span>
+            }
+        </p>
+    </div>
+}
+
+@code {
+    private CurrentActivity? CurrentActivity { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentActivity = await ViewModel.GetCurrentActivityAsync();
+    }
+}

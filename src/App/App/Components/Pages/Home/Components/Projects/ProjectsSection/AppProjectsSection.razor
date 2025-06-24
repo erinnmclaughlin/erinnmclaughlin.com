@@ -1,7 +1,5 @@
-@using App.Projects
-@using App.Projects.Services
-@namespace App.Home.Components
-@inject IFeaturedProjectsProvider FeaturedProjectsProvider
+@namespace App.Components.Pages.Home.Components
+@inject IAppProjectsSectionViewModel ViewModel
 
 <section class="section fade-in" id="projects" >
     <h2 class="section-heading">Featured Projects</h2>
@@ -15,10 +13,10 @@
 
 @code {
 
-    private FeaturedProjectDefinition[] FeaturedProjects { get; set; } = [];
+    private ProjectDefinition[] FeaturedProjects { get; set; } = [];
 
     protected override void OnInitialized()
     {
-        FeaturedProjects = FeaturedProjectsProvider.GetFeaturedProjects();
+        FeaturedProjects = ViewModel.GetFeaturedProjects();
     }
 }

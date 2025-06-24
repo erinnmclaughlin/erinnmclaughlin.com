@@ -1,0 +1,30 @@
+@inherits TestContext
+@code {
+    private IAppCurrentActivityBadgeViewModel ViewModel { get; } = Substitute.For<IAppCurrentActivityBadgeViewModel>();
+
+    public AppCurrentActivityBadgeTests()
+    {
+        Services.AddSingleton(ViewModel);
+    }
+
+    [Fact]
+    public void AppCurrentActivity_does_not_render_when_no_current_activity_exists()
+    {
+        ViewModel.GetCurrentActivityAsync().Returns((CurrentActivity?)null);
+        var component = Render(@<AppCurrentActivityBadge/>);
+        Assert.Empty(component.Markup);
+    }
+    
+    [Fact]
+    public void AppCurrentActivity_renders_when_current_activity_exists()
+    {
+        ViewModel.GetCurrentActivityAsync().Returns(new CurrentActivity
+        {
+            Action = "The Sims",
+            Verb = "playing"
+        });
+        var component = Render(@<AppCurrentActivityBadge/>);
+        Assert.NotEmpty(component.Markup);
+        Assert.Equal("I'm currently playing The Sims", component.FindByTestId("current-activity").TextContent);
+    }
+}

@@ -1,7 +1,5 @@
-﻿@using App.Projects
-@using App.Projects.Services
-@namespace App.Home.Components
-@inject IFeaturedProjectsProvider FeaturedProjectsProvider
+﻿@namespace App.Components.Pages.Home.Components
+@inject IAppProjectCardViewModel ViewModel
 
 <div class="card">
     <div>
@@ -95,13 +93,13 @@
 @code {
     
     [Parameter] 
-    public required FeaturedProjectDefinition ProjectDefinition { get; set; }
+    public required ProjectDefinition ProjectDefinition { get; set; }
 
     private FeaturedProject? Project { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Project = await FeaturedProjectsProvider.GetFeaturedProjectDetailsAsync(ProjectDefinition);
+        Project = await ViewModel.GetProjectDetailsAsync(ProjectDefinition);
     }
     
     private static string GetLanguageColor(string language) => language switch
@@ -112,5 +110,4 @@
         "JavaScript" => "#f1e05a",
         _ => "var(--dark)"
     };
-
 }

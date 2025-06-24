@@ -1,0 +1,31 @@
+@namespace App.Components.Pages.Home.Components
+
+@inject IAppBlogSectionViewModel ViewModel
+
+@if (Posts?.Count > 0)
+{
+    <section class="section fade-in" id="blog" data-testid="blogSection">
+        <h2 class="section-heading">Recent Blog Posts</h2>
+        @foreach (var post in Posts)
+        {
+            <div class="blog-post" data-testid="blog-post-@post.Slug">
+                <h3 class="blog-post-title">
+                    <a href="">@post.Title</a>
+                </h3>
+                <p class="blog-post-preview">
+                    @post.ContentPreview
+                </p>
+            </div>
+        }
+    </section>
+}
+
+@code {
+
+    private IReadOnlyList<RecentBlogPost>? Posts { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Posts = await ViewModel.GetRecentPostsAsync();
+    }
+}

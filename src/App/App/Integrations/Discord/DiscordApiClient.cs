@@ -11,11 +11,11 @@ public sealed class DiscordApiClient
         _logger = logger;
     }
 
-    public async Task<DiscordUserData?> GetUserDetail()
+    public async Task<DiscordUserData?> GetUserDetail(CancellationToken cancellationToken = default)
     {
         try
         {
-            var response = await _httpClient.GetFromJsonAsync<DiscordApiResponse<DiscordUserData>>("users/699320279532568687");
+            var response = await _httpClient.GetFromJsonAsync<DiscordApiResponse<DiscordUserData>>("users/699320279532568687", cancellationToken);
             return response?.Data;
         }
         catch (HttpRequestException ex)

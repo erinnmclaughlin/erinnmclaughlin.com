@@ -1,22 +1,26 @@
-using App;
-using App.Blog.Services;
+using App.Components;
+using App.Components.Pages.Home.Components;
 using App.Integrations.Discord;
 using App.Integrations.GitHub;
 using App.Integrations.NuGet;
 using App.Integrations.Steam;
-using App.Projects.Services;
 using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddNpgsqlDataSource("blogdb");
-builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IAppBlogSectionViewModel, AppBlogSectionViewModel>();
 
 builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddTransient<IAppBlogSectionViewModel, AppBlogSectionViewModel>();
+builder.Services.AddTransient<IAppCurrentActivityBadgeViewModel, AppCurrentActivityBadgeViewModel>();
+builder.Services.AddTransient<IAppProjectsSectionViewModel, AppProjectsSectionViewModel>();
+builder.Services.AddTransient<IAppProjectCardViewModel, AppProjectCardViewModel>();
 
 builder.Services.AddFeatureManagement();
 
@@ -24,7 +28,6 @@ builder
     .AddGitHubApiClient()
     .AddSteamApiClient();
 
-builder.Services.AddScoped<IFeaturedProjectsProvider, FeaturedProjectsProvider>();
 builder.Services.AddScoped<INuGetApiClient, NuGetApiClient>();
 builder.Services.AddHttpClient<DiscordApiClient>(client => client.BaseAddress = new Uri("https://api.lanyard.rest/v1/"));
 

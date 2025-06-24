@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace App.Projects;
+namespace App.Components.Pages.Home.Components;
 
-public sealed record FeaturedProjectDefinition
+public sealed record ProjectDefinition
 {
     [JsonPropertyName("displayName")]
     public required string DisplayName { get; init; }

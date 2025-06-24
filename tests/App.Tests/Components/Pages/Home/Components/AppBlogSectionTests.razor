@@ -1,0 +1,57 @@
+@inherits TestContext
+@code {
+
+    private IAppBlogSectionViewModel ViewModel { get; } = Substitute.For<IAppBlogSectionViewModel>();
+
+    public AppBlogSectionTests()
+    {
+        Services.AddSingleton(ViewModel);
+    }
+
+    [Fact]
+    public void AppBlogSection_should_not_render_when_no_posts_exist()
+    {
+        ViewModel.GetRecentPostsAsync().Returns([]);
+        var component = Render(@<AppBlogSection/>);
+        Assert.Empty(component.Markup);
+    }
+    
+    [Fact]
+    public void AppBlogSection_should_render_when_posts_exist()
+    {
+        var blogPosts = GenerateMockPosts().ToArray();
+        ViewModel.GetRecentPostsAsync().Returns(blogPosts);
+        
+        var component = Render(@<AppBlogSection/>);
+        Assert.NotEmpty(component.Markup);
+    }
+
+    [Fact]
+    public void AppBlogSection_should_display_expected_post_data()
+    {
+        var blogPosts = GenerateMockPosts().ToArray();
+        ViewModel.GetRecentPostsAsync().Returns(blogPosts);
+        
+        var component = Render(@<AppBlogSection/>);
+        
+        foreach (var post in blogPosts)
+        {
+            var postElement = component.FindByTestId($"blog-post-{post.Slug}");
+            Assert.Equal(post.Title, postElement.QuerySelector(".blog-post-title")?.TextContent);
+            Assert.Equal(post.ContentPreview, postElement.QuerySelector(".blog-post-preview")?.TextContent);
+        }
+    }
+    
+    private static IEnumerable<RecentBlogPost> GenerateMockPosts(int maxPosts = 3)
+    {
+        for (var i = 0; i < maxPosts; i++)
+        {
+            yield return new RecentBlogPost
+            {
+                Slug = $"post-{i}",
+                Title = $"Post Title {i}",
+                ContentPreview = $"This is the preview for post {i}.",
+            };
+        }
+    }
+}
