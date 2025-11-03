@@ -1,0 +1,11 @@
+﻿.section {
+    text-align: center;
+    padding-inline: 1rem;
+}
+
+@media (min-width: 770px) {
+    .section {
+        text-align: left;
+        padding-inline: 0;
+    }
+}
