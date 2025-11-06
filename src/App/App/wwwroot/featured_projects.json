@@ -14,15 +14,11 @@
   {
     "displayName": "HeadlessBlazor",
     "repoId": "erinnmclaughlin/HeadlessBlazor",
-    "nugetId": "HeadlessBlazor",
-    "website": "https://headlessblazor.org/",
-    "websiteUrlTitle": "Project Website"
+    "nugetId": "HeadlessBlazor"
   },
   {
     "displayName": "Beacon",
-    "repoId": "erinnmclaughlin/Beacon",
-    "website": "https://beacon-lms.azurewebsites.net/",
-    "websiteUrlTitle": "Live Demo"
+    "repoId": "erinnmclaughlin/Beacon"
   },
   {
     "displayName": "Flappy Bird",
